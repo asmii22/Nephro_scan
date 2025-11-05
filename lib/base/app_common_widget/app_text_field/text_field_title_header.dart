@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kapada/base/utils/app_text_styles.dart';
-import 'package:kapada/base/utils/strings.dart';
-import 'package:kapada/theme/theme_context_extensions.dart';
+import 'package:nephroscan/base/utils/strings.dart';
+import 'package:nephroscan/theme/theme_context_extensions.dart';
+
+import '../../utils/app_text_styles.dart';
 
 class TextFieldHeaderTitleView extends StatelessWidget {
   const TextFieldHeaderTitleView({

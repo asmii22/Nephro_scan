@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:kapada/base/app_common_widget/app_text_field/text_field_title_header.dart';
-import 'package:kapada/base/utils/strings.dart';
-import 'package:kapada/theme/theme_context_extensions.dart';
+import 'package:nephroscan/base/app_common_widget/app_text_field/text_field_title_header.dart';
+import 'package:nephroscan/base/utils/strings.dart';
+import 'package:nephroscan/theme/theme_context_extensions.dart';
 
 import '../../utils/app_styles.dart';
 import '../../utils/app_text_styles.dart';
