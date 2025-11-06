@@ -5,6 +5,7 @@ import 'package:nephroscan/base/app_common_widget/button/app_button.dart';
 import 'package:nephroscan/base/app_common_widget/custom_top_nav_bar/custom_top_nav_bar.dart';
 import 'package:nephroscan/base/utils/app_text_styles.dart';
 import 'package:nephroscan/base/utils/ui_extension.dart';
+import 'package:nephroscan/routes/auto_router.gr.dart';
 
 enum Gender { male, female }
 
@@ -24,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: CustomTopNavBar(title: 'Sign Up', leftWidget: SizedBox()),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsetsGeometry.all(10),
+          padding: EdgeInsetsGeometry.all(20),
           child: Column(
             children: [
               AppTextField.textField(
@@ -143,10 +144,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     'Already have an account? ',
                     style: AppTextStyles.bodyLargePoppins,
                   ),
-                  Text(
-                    'Sign In',
-                    style: AppTextStyles.bodyLargePoppins.copyWith(
-                      decoration: TextDecoration.underline,
+                  InkWell(
+                    onTap: () {
+                      AutoRouter.of(context).push(SignInRoute());
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: AppTextStyles.bodyLargePoppins.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
