@@ -14,7 +14,7 @@ class AppButton extends StatelessWidget {
     Color? backgroundColor,
     Color? textColor,
     double height = 50,
-    double radius = 25,
+    double radius = 15,
     double elevation = 2,
     double fontSize = 16.0,
     double? width,

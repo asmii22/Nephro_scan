@@ -34,7 +34,7 @@ class AppTextField {
     bool readOnly = false,
     int? maxLines = 1,
     int maxLength = 255,
-    double verticalPadding = 12,
+    double verticalPadding = 10,
     bool isDisabled = false,
     bool isRequired = false,
     List<TextInputFormatter>? inputFormatters,
@@ -44,7 +44,7 @@ class AppTextField {
     FocusNode? focusNode,
     TextStyle? headerStyle,
     TextStyle? hintStyle,
-    double borderRadius = 50.0,
+    double borderRadius = 15.0,
     Color? textColor,
     Color? borderColor,
     bool hasError = false,
@@ -85,7 +85,7 @@ class AppTextField {
               style ??
               AppTextStyles.labelLargeMontserrat.copyWith(
                 color: textColor ?? context.colorScheme.onPrimary,
-                fontSize: 16,
+                fontSize: 14,
               ),
 
           // style: AppStyles.textFieldTextStyle(
@@ -122,7 +122,7 @@ class AppTextField {
                   color:
                       textColor ??
                       context.colorScheme.onPrimary.withValues(alpha: 0.5),
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
             labelStyle: context.textTheme.labelSmall?.copyWith(
