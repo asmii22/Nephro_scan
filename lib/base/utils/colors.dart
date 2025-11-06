@@ -10,9 +10,9 @@ class AppColors {
   static const lightWhite = Color(0xffF5F5F5);
 
   // Dark Theme Colors
-  static const Color primaryDark = Color(0xFF1E1E1E); // Main background
+  static const Color primaryDark = Color(0xFF20C2AA); // Main background
   static const Color secondaryDark = Color(
-    0xFF2A2A2A,
+    0xFFB0B0B0,
   ); // Card / elevated surfaces
   static const Color tertiaryDark = Color(
     0xFF3A3A3A,

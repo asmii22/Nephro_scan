@@ -46,6 +46,7 @@ dependencies:
   dio: ^5.9.0
   shared_preferences: ^2.5.3
   get_it: ^8.2.0
+  animated_bottom_navigation_bar: ^1.4.0
 
 
 dev_dependencies:
