@@ -1,0 +1,44 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:nephroscan/base/base.dart';
+import 'package:nephroscan/features/calendar_screen/calendar_screen.dart';
+import 'package:nephroscan/features/home_screen/home_screen.dart';
+import 'package:nephroscan/features/message_screen/message_screen.dart';
+import 'package:nephroscan/features/profile_screen/profile_screen.dart';
+import 'package:nephroscan/features/qr_screen/qr_screen.dart';
+
+@RoutePage()
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  int _currentIndex = 2;
+
+  void _onNavTap(int index) {
+    setState(() => _currentIndex = index);
+  }
+
+  static const List<Widget> _tabs = [
+    HomeScreen(),
+    CalendarScreen(),
+    QrScreen(),
+    MessageScreen(),
+    ProfileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(index: _currentIndex, children: _tabs),
+      // appBar: CustomTopNavBar(backgroundColor: AppColors.transparent, rightWidget: ,),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onNavTap,
+      ),
+    );
+  }
+}

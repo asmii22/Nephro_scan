@@ -146,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      AutoRouter.of(context).push(SignInRoute());
+                      AutoRouter.of(context).replace(SignInRoute());
                     },
                     child: Text(
                       'Sign In',

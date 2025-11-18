@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nephroscan/base/app_common_widget/app_bloc_wrapper.dart';
 import 'package:nephroscan/routes/auto_router.dart';
 import 'package:nephroscan/theme/app_theme.dart';
 import 'package:nephroscan/theme/theme_manager.dart';
@@ -19,13 +20,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'NephroScan',
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: themeManager.themeMode,
-      debugShowCheckedModeBanner: false,
-      routerConfig: getIt<AppRouter>().config(),
+    return AppBlocWrapper(
+      child: MaterialApp.router(
+        title: 'NephroScan',
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: themeManager.themeMode,
+        debugShowCheckedModeBanner: false,
+        routerConfig: getIt<AppRouter>().config(),
+      ),
     );
   }
 }
