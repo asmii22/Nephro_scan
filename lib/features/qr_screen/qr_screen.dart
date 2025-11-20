@@ -10,6 +10,6 @@ class QrScreen extends StatefulWidget {
 class _QrScreenState extends State<QrScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.black38);
+    return Scaffold(body: Container(color: Colors.black38));
   }
 }

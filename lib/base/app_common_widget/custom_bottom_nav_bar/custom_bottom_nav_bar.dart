@@ -20,7 +20,6 @@ class CustomBottomNavBar extends StatelessWidget {
     if (onTap != null) {
       onTap!(index);
     } else {
-      // use AutoRoute TabsRouter to switch tabs when parent didn't supply onTap
       context.tabsRouter.setActiveIndex(index);
     }
   }
@@ -30,11 +29,10 @@ class CustomBottomNavBar extends StatelessWidget {
     return BlocBuilder<NavBarCubit, int>(
       builder: (context, navState) {
         final activeIndex = currentIndex ?? context.tabsRouter.activeIndex;
-        // Wrap with Theme to disable splash/highlight and make nav transparent
         return Theme(
           data: Theme.of(context).copyWith(
             splashFactory: NoSplash.splashFactory,
-            // highlightColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
           child: BottomNavigationBar(
             currentIndex: activeIndex,

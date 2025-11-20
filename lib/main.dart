@@ -12,10 +12,21 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final ThemeManager themeManager = ThemeManager();
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
-  MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final ThemeManager themeManager = ThemeManager();
+  late final AppRouter _router;
+  @override
+  void initState() {
+    super.initState();
+    _router = getIt<AppRouter>();
+  }
 
   // This widget is the root of your application.
   @override
@@ -27,7 +38,7 @@ class MyApp extends StatelessWidget {
         darkTheme: AppThemes.darkTheme,
         themeMode: themeManager.themeMode,
         debugShowCheckedModeBanner: false,
-        routerConfig: getIt<AppRouter>().config(),
+        routerConfig: _router.config(),
       ),
     );
   }

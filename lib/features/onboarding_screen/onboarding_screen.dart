@@ -169,7 +169,7 @@ class CarouselScreenThree extends StatelessWidget {
             30.verticalBox,
             AppButton(
               title: 'Join Now',
-              onClick: () => AutoRouter.of(context).replace(SignInRoute()),
+              onClick: () => context.router.replace(SignInRoute()),
             ),
           ],
         ),

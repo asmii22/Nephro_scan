@@ -27,9 +27,22 @@ class ProfileContainerWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('50+', style: AppTextStyles.bodyLargeInter),
-                Text('Tests', style: AppTextStyles.bodySmallInter),
+                Text(
+                  '50+',
+                  style: AppTextStyles.bodyLargeInter.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  'Tests',
+                  style: AppTextStyles.bodySmallInter.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -42,9 +55,22 @@ class ProfileContainerWidget extends StatelessWidget {
               ),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('120', style: AppTextStyles.bodyLargeInter),
-                Text('Reports', style: AppTextStyles.bodySmallInter),
+                Text(
+                  '120+',
+                  style: AppTextStyles.bodyLargeInter.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  'Reports',
+                  style: AppTextStyles.bodySmallInter.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -57,9 +83,22 @@ class ProfileContainerWidget extends StatelessWidget {
               ),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('5', style: AppTextStyles.bodyLargeInter),
-                Text('Doctors', style: AppTextStyles.bodySmallInter),
+                Text(
+                  '5+',
+                  style: AppTextStyles.bodyLargeInter.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  'Doctors',
+                  style: AppTextStyles.bodySmallInter.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                  ),
+                ),
               ],
             ),
           ],

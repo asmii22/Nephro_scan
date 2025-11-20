@@ -120,8 +120,7 @@ class _SignInScreenState extends State<SignInScreen> {
               20.verticalBox,
               AppButton(
                 title: 'Sign in',
-                onClick: () =>
-                    AutoRouter.of(context).replaceAll([DashboardRoute()]),
+                onClick: () => context.router.replaceAll([DashboardRoute()]),
               ),
               20.verticalBox,
               Row(
@@ -189,7 +188,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => AutoRouter.of(context).replace(SignUpRoute()),
+                    onTap: () => context.router.replace(SignUpRoute()),
                     child: Text(
                       'Sign up',
                       style: AppTextStyles.labelLargeMontserrat.copyWith(

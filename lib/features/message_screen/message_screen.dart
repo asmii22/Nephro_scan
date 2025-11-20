@@ -10,6 +10,6 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.orange);
+    return Scaffold(body: Container(color: Colors.orange));
   }
 }

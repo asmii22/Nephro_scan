@@ -10,6 +10,6 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.green);
+    return Scaffold(body: Container(color: Colors.green));
   }
 }

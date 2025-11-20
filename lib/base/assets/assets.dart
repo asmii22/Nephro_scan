@@ -27,6 +27,14 @@ class SVGIcons {
       'assets/icons/profile_unselected.svg';
   static const String qr_selected = 'assets/icons/qr_selected.svg';
   static const String qr_unselected = 'assets/icons/qr_unselected.svg';
+  static const String appearance = 'assets/svg_icons/appearance.svg';
+  static const String notifications = 'assets/svg_icons/notifications.svg';
+  static const String privacy = 'assets/svg_icons/privacy.svg';
+  static const String security = 'assets/svg_icons/security.svg';
+  static const String main = 'assets/svg_icons/main.svg';
+  static const String language = 'assets/svg_icons/language.svg';
+  static const String questions = 'assets/svg_icons/questions.svg';
+  static const String faqs = 'assets/svg_icons/faqs.svg';
 }
 
 class PNGIcons {

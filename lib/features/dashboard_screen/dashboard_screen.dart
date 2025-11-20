@@ -16,7 +16,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _currentIndex = 2;
+  int _currentIndex = 0;
 
   void _onNavTap(int index) {
     setState(() => _currentIndex = index);
@@ -34,7 +34,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: _tabs),
-      // appBar: CustomTopNavBar(backgroundColor: AppColors.transparent, rightWidget: ,),
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
         onTap: _onNavTap,
