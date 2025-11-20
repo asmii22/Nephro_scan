@@ -43,6 +43,19 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
   );
 
+  static final headlineLargePoppins = GoogleFonts.poppins(
+    fontSize: 32,
+    fontWeight: FontWeight.normal,
+  );
+  static final headlineMediumPoppins = GoogleFonts.poppins(
+    fontSize: 24,
+    fontWeight: FontWeight.normal,
+  );
+  static final headlineSmallPoppins = GoogleFonts.poppins(
+    fontSize: 22,
+    fontWeight: FontWeight.normal,
+  );
+
   static const titleLarge = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.normal,

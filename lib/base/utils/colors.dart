@@ -58,4 +58,13 @@ class AppColors {
   // Border & Divider
   static const Color borderLight = Color(0xFF8A8A8A);
   static const Color dividerLight = Color(0xFFD6D6D6);
+
+  static const Color appearance = Color(0xFF493AEF);
+  static const Color notification = Color(0xFFE8DB29);
+  static const Color privacy = Color(0xFFEE4AE4);
+  static const Color security = Color(0xFF3CC3D6);
+  static const Color main = Color(0xFF18BA2E);
+  static const Color language = Color(0xFF5878BD);
+  static const Color askAQuestion = Color(0xFFEED82C);
+  static const Color faqs = Color(0xFFD343F7);
 }

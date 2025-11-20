@@ -6,6 +6,7 @@ import 'package:nephroscan/base/app_common_widget/custom_top_nav_bar/custom_top_
 import 'package:nephroscan/base/assets/assets.dart';
 import 'package:nephroscan/base/utils/app_text_styles.dart';
 import 'package:nephroscan/base/utils/ui_extension.dart';
+import 'package:nephroscan/routes/auto_router.gr.dart';
 
 import '../../base/utils/colors.dart';
 
@@ -117,8 +118,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
               20.verticalBox,
-              AppButton(title: 'Sign in', onClick: () {}),
-              30.verticalBox,
+              AppButton(
+                title: 'Sign in',
+                onClick: () => context.router.replaceAll([DashboardRoute()]),
+              ),
+              20.verticalBox,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -152,6 +156,46 @@ class _SignInScreenState extends State<SignInScreen> {
                       color: Theme.of(
                         context,
                       ).colorScheme.onPrimary.withValues(alpha: 0.2),
+                    ),
+                  ),
+                ],
+              ),
+              20.verticalBox,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   mainAxisSize: MainAxisSize.max,
+              //   children: [
+              //     AppButton(
+              //       title: '',
+              //       width: 100,
+              //       onClick: () {},
+              //       backgroundColor: AppColors.textTertiaryLight,
+              //       icon: Image.asset(PNGIcons.google, width: 20, height: 20),
+              //     ),
+              //   ],
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: AppTextStyles.labelLargeMontserrat.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onPrimary.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => context.router.replace(SignUpRoute()),
+                    child: Text(
+                      'Sign up',
+                      style: AppTextStyles.labelLargeMontserrat.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                     ),
                   ),
                 ],

@@ -81,7 +81,7 @@ class CustomTopNavBar extends StatelessWidget implements PreferredSizeWidget {
     final content = Container(
       height: height,
       color: effectiveBackground,
-      padding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: contentPadding ?? const EdgeInsets.only(right: 2.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -89,7 +89,6 @@ class CustomTopNavBar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // LEFT SECTION — Back button or custom widget
                 leftWidget ??
                     IconButton(
                       icon: Icon(
