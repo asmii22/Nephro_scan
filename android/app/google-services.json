@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "662442395319",
+    "project_id": "chatapp-f46d3",
+    "storage_bucket": "chatapp-f46d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662442395319:android:5e487c8d4d38d001e9af32",
+        "android_client_info": {
+          "package_name": "com.example.nephroscan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662442395319-837rgu8g1519i06ek64mfoe91bupm9d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxf1MSpCDxH0iKoke7CvFa3EVeNmjHLHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662442395319-837rgu8g1519i06ek64mfoe91bupm9d6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662442395319-npt5l4qii3m1htkoi26mao3hfvhlb55a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.raj.chatapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662442395319:android:dd52328993a86b5ee9af32",
+        "android_client_info": {
+          "package_name": "com.raj.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662442395319-837rgu8g1519i06ek64mfoe91bupm9d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxf1MSpCDxH0iKoke7CvFa3EVeNmjHLHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662442395319-837rgu8g1519i06ek64mfoe91bupm9d6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662442395319-npt5l4qii3m1htkoi26mao3hfvhlb55a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.raj.chatapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

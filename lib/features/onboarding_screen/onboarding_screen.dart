@@ -148,7 +148,7 @@ class CarouselScreenThree extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(PNGImages.convo_onboarding),
+            Image.asset(PNGImages.convoOnboarding),
             60.verticalBox,
             Text(
               'Chat with Experts',
