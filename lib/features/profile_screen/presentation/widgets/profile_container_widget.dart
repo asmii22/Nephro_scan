@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../base/utils/app_text_styles.dart';
+import '../../../../base/utils/app_text_styles.dart';
 
 class ProfileContainerWidget extends StatelessWidget {
   const ProfileContainerWidget({super.key});

@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/assets/assets.dart';
 import 'package:nephroscan/base/utils/app_text_styles.dart';
+import 'package:nephroscan/routes/auto_router.gr.dart';
 
 import '../widgets/media_single_widget.dart';
 
@@ -47,6 +51,10 @@ class _CtScanScreenState extends State<CtScanScreen> {
                   MediaSingleWidget(
                     media: 'Camera',
                     iconData: Icons.camera_alt_outlined,
+                    onTap: () {
+                      log('it is pressed');
+                      context.router.push(ReportsRoute());
+                    },
                   ),
                   MediaSingleWidget(
                     media: 'Photos',

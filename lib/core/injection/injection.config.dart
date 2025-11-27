@@ -18,7 +18,7 @@ import 'package:nephroscan/core/firebase_client/auth_firebase_client.dart'
 import 'package:nephroscan/core/firebase_client/firestore_client.dart' as _i961;
 import 'package:nephroscan/core/injection/firebase_module.dart' as _i231;
 import 'package:nephroscan/features/dashboard_screen/presentation/cubit/nav_bar_cubit/nav_bar_cubit.dart'
-    as _i588;
+    as _i701;
 import 'package:nephroscan/features/sign_in_sign_up_screen/cubit/user_sign_in_cubit/user_sign_in_cubit.dart'
     as _i291;
 import 'package:nephroscan/features/sign_in_sign_up_screen/data/datasources/sign_up_remote_datasource.dart'
@@ -37,7 +37,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final firebaseInjectableModule = _$FirebaseInjectableModule();
-    gh.factory<_i588.NavBarCubit>(() => _i588.NavBarCubit());
+    gh.factory<_i701.NavBarCubit>(() => _i701.NavBarCubit());
     gh.lazySingleton<_i59.FirebaseAuth>(
       () => firebaseInjectableModule.firebaseAuth,
     );
@@ -51,6 +51,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1059.AuthFirebaseClient>(
       () => _i1059.AuthFirebaseClient(
         auth: gh<_i59.FirebaseAuth>(),
+        storage: gh<_i974.FirebaseFirestore>(),
         firestoreClient: gh<_i961.FirestoreClient>(),
       ),
     );

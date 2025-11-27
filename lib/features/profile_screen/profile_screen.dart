@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/base.dart';
-import 'package:nephroscan/features/profile_screen/widgets/profile_container_widget.dart';
-import 'package:nephroscan/features/profile_screen/widgets/profile_info_list_widget.dart';
+import 'package:nephroscan/features/profile_screen/presentation/widgets/profile_container_widget.dart';
+import 'package:nephroscan/features/profile_screen/presentation/widgets/profile_info_list_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
