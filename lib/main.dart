@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/app_common_widget/app_bloc_wrapper.dart';
+import 'package:nephroscan/firebase_options.dart';
 import 'package:nephroscan/routes/auto_router.dart';
 import 'package:nephroscan/theme/app_theme.dart';
 import 'package:nephroscan/theme/theme_manager.dart';
@@ -8,6 +10,7 @@ import 'core/injection/injection.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await configureInjection('dev');
   runApp(MyApp());
 }

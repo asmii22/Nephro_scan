@@ -9,8 +9,9 @@ class PNGImages {
   static const String profilePlaceholder = 'assets/images/sthetoscope.png';
   static const String banner = 'assets/images/banner.png';
   static const String doctors = 'assets/images/doctors.png';
-  static const String convo_onboarding = 'assets/images/convo_onboarding.png';
+  static const String convoOnboarding = 'assets/images/convo_onboarding.png';
   static const String dummy = 'assets/images/dummy.png';
+  static const String uploadImage = 'assets/images/upload_image.png';
 }
 
 class SVGIcons {

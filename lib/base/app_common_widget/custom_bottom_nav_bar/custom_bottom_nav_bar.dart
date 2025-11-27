@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nephroscan/core/injection/injection.dart';
 
-import '../../../features/dashboard_screen/cubits/nav_bar_cubit/nav_bar_cubit.dart';
+import '../../../features/dashboard_screen/presentation/cubit/nav_bar_cubit/nav_bar_cubit.dart';
 import '../../assets/assets.dart';
 import '../../utils/colors.dart';
 

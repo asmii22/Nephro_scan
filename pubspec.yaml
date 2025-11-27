@@ -47,7 +47,14 @@ dependencies:
   shared_preferences: ^2.5.3
   get_it: ^8.2.0
   animated_bottom_navigation_bar: ^1.4.0
-
+  firebase_core: ^4.2.1
+  firebase_messaging: ^16.0.4
+  firebase_auth: ^6.1.2
+  firebase_storage: ^13.0.4
+  cloud_firestore: ^6.1.0
+  freezed_annotation: ^3.1.0
+  cached_network_image: ^3.4.1
+  form_builder_validators: ^11.2.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +69,8 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   auto_route_generator: ^10.2.4
   injectable_generator: ^2.8.1
+  json_serializable: ^6.11.1
+  freezed: ^3.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
