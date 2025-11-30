@@ -14,6 +14,7 @@ import '../../../../core/media_picker/media_picker_config.dart';
 import '../../../../core/media_picker/media_picker_service.dart';
 import '../../../../core/media_picker/media_source.dart';
 import '../../../../core/media_picker/media_type.dart';
+import '../../data/models/report_model.dart';
 import '../cubit/ct_scan_upload_cubit/ct_scan_upload_cubit.dart';
 import '../widgets/media_single_widget.dart';
 
@@ -66,21 +67,44 @@ class _CtScanScreenState extends State<CtScanScreen> {
           (val) => val == prediction.reduce((a, b) => a > b ? a : b),
         );
 
-        log("Predicted class: $predictedClass");
+        String title;
+        String description;
 
-        // final report = ReportModel(
-        //   id: '',
-        //   patientId: '',
-        //   doctorId: '',
-        //   title: AppStrings.reportTitle,
-        //   description: AppStrings.reportDescription,
-        //   date: DateTime.now(),
-        //   ctScanImageUrl: '',
-        // );
-        // context.read<CtScanUploadCubit>().uploadCtScanData(
-        //   report: report,
-        //   ctScanFile: selectedFile,
-        // );
+        switch (predictedClass) {
+          case 0: // Cyst
+            title = AppStrings.cystTitle;
+            description = AppStrings.cystDescription;
+            break;
+          case 1: // Normal
+            title = AppStrings.normalTitle;
+            description = AppStrings.normalDescription;
+            break;
+          case 2: // Stone
+            title = AppStrings.stoneTitle;
+            description = AppStrings.stoneDescription;
+            break;
+          case 3: // Tumor
+            title = AppStrings.tumorTitle;
+            description = AppStrings.tumorDescription;
+            break;
+          default:
+            title = "Unknown";
+            description = "The prediction result is unclear.";
+        }
+
+        final report = ReportModel(
+          id: '',
+          patientId: '',
+          doctorId: '',
+          title: title,
+          description: description,
+          date: DateTime.now(),
+          ctScanImageUrl: '',
+        );
+        context.read<CtScanUploadCubit>().uploadCtScanData(
+          report: report,
+          ctScanFile: selectedFile,
+        );
       },
       onError: (p0) {
         if (!context.mounted) return;

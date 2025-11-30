@@ -29,6 +29,25 @@ class AppStrings {
   static const String reportTitle = 'Swollen kidney with 3 stones';
   static const String reportDescription =
       'A swollen kidney with three visible stones located in the lower pole region. The stones appear to be causing some obstruction, leading to mild hydronephrosis. No signs of infection or other abnormalities detected.';
+
+  static const String cystTitle = "Cyst";
+  static const String cystDescription =
+      "A cyst is a fluid-filled sac that can develop in various parts of the body, including the kidneys. "
+      "Kidney cysts are often benign (non-cancerous) and don't cause symptoms unless they grow large.";
+
+  static const String normalTitle = "Normal";
+  static const String normalDescription =
+      "The kidney is functioning normally. There are no abnormal findings in the CT scan, indicating a healthy kidney.";
+
+  static const String stoneTitle = "Kidney Stone";
+  static const String stoneDescription =
+      "Kidney stones are hard deposits of minerals and salts that form inside the kidneys. "
+      "They can cause intense pain when they move through the urinary tract and may require medical intervention.";
+
+  static const String tumorTitle = "Kidney Tumor";
+  static const String tumorDescription =
+      "A tumor is an abnormal growth of tissue in the kidney that can be either benign or malignant (cancerous). "
+      "Further tests and medical consultation are required for diagnosis and treatment.";
 }
 
 extension ExtString on String {
