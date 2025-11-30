@@ -1,5 +1,36 @@
 import 'package:easy_localization/easy_localization.dart';
 
+class AppStrings {
+  static const String appName = 'CT Scan Diagnosis';
+  static const String welcomeBack = 'welcome_back';
+  static const String signInToContinue = 'sign_in_to_continue';
+  static const String emailAddress = 'email_address';
+  static const String password = 'password';
+  static const String forgotPassword = 'forgot_password';
+  static const String signIn = 'sign_in';
+  static const String doNotHaveAnAccount = 'do_not_have_an_account';
+  static const String signUp = 'sign_up';
+  static const String fullName = 'full_name';
+  static const String phoneNumber = 'phone_number';
+  static const String alreadyHaveAnAccount = 'already_have_an_account';
+  static const String verifyYourEmail = 'verify_your_email';
+  static const String weHaveSentYouAnOTPToYourEmail =
+      'we_have_sent_you_an_otp_to_your_email';
+  static const String enterOTPCode = 'enter_otp_code';
+  static const String submit = 'submit';
+  static const String resendOTP = 'resend_otp';
+
+  //firebase collection names
+  static const String usersCollection = 'users';
+  static const String reportCollection = 'reports';
+
+  //ct scan result labels
+  static const String normal = 'Normal';
+  static const String reportTitle = 'Swollen kidney with 3 stones';
+  static const String reportDescription =
+      'A swollen kidney with three visible stones located in the lower pole region. The stones appear to be causing some obstruction, leading to mild hydronephrosis. No signs of infection or other abnormalities detected.';
+}
+
 extension ExtString on String {
   bool get isInvalidEmail {
     final emailRegExp = RegExp(r'^[a-zA-Z0-9.+_]+@[a-zA-Z0-9]+\.[a-zA-Z]+');

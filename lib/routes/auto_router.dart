@@ -12,5 +12,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(path: '/Onboarding', page: OnboardingRoute.page),
     AutoRoute(path: '/Dashboard', page: DashboardRoute.page),
     AutoRoute(path: '/Setting', page: SettingRoute.page),
+    AutoRoute(path: '/Report', page: ReportsRoute.page),
   ];
 }

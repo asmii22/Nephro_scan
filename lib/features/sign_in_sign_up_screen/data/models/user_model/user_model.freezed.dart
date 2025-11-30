@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel {
 
- String get id; String? get name; String? get email; String? get address; String? get phoneNumber; UserRole? get role; String? get profilePicture;
+ String get id; String? get name; String? get email; String? get address; String? get phoneNumber; UserRole? get role; String? get profilePicture; List<String>? get reports;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.address, address) || other.address == address)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.role, role) || other.role == role)&&(identical(other.profilePicture, profilePicture) || other.profilePicture == profilePicture));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.address, address) || other.address == address)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.role, role) || other.role == role)&&(identical(other.profilePicture, profilePicture) || other.profilePicture == profilePicture)&&const DeepCollectionEquality().equals(other.reports, reports));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,address,phoneNumber,role,profilePicture);
+int get hashCode => Object.hash(runtimeType,id,name,email,address,phoneNumber,role,profilePicture,const DeepCollectionEquality().hash(reports));
 
 @override
 String toString() {
-  return 'UserModel(id: $id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber, role: $role, profilePicture: $profilePicture)';
+  return 'UserModel(id: $id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber, role: $role, profilePicture: $profilePicture, reports: $reports)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String? name, String? email, String? address, String? phoneNumber, UserRole? role, String? profilePicture
+ String id, String? name, String? email, String? address, String? phoneNumber, UserRole? role, String? profilePicture, List<String>? reports
 });
 
 
@@ -65,7 +65,7 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? email = freezed,Object? address = freezed,Object? phoneNumber = freezed,Object? role = freezed,Object? profilePicture = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? email = freezed,Object? address = freezed,Object? phoneNumber = freezed,Object? role = freezed,Object? profilePicture = freezed,Object? reports = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as String?,address: freezed == address ? _self.address : address // ignore: cast
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as UserRole?,profilePicture: freezed == profilePicture ? _self.profilePicture : profilePicture // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,reports: freezed == reports ? _self.reports : reports // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? name,  String? email,  String? address,  String? phoneNumber,  UserRole? role,  String? profilePicture)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? name,  String? email,  String? address,  String? phoneNumber,  UserRole? role,  String? profilePicture,  List<String>? reports)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,_that.role,_that.profilePicture);case _:
+return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,_that.role,_that.profilePicture,_that.reports);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? name,  String? email,  String? address,  String? phoneNumber,  UserRole? role,  String? profilePicture)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? name,  String? email,  String? address,  String? phoneNumber,  UserRole? role,  String? profilePicture,  List<String>? reports)  $default,) {final _that = this;
 switch (_that) {
 case _UserModel():
-return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,_that.role,_that.profilePicture);case _:
+return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,_that.role,_that.profilePicture,_that.reports);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? name,  String? email,  String? address,  String? phoneNumber,  UserRole? role,  String? profilePicture)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? name,  String? email,  String? address,  String? phoneNumber,  UserRole? role,  String? profilePicture,  List<String>? reports)?  $default,) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,_that.role,_that.profilePicture);case _:
+return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,_that.role,_that.profilePicture,_that.reports);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.name,_that.email,_that.address,_that.phoneNumber,
 @JsonSerializable()
 
 class _UserModel extends UserModel {
-  const _UserModel({required this.id, this.name, this.email, this.address, this.phoneNumber, this.role, this.profilePicture}): super._();
+  const _UserModel({required this.id, this.name, this.email, this.address, this.phoneNumber, this.role, this.profilePicture, final  List<String>? reports}): _reports = reports,super._();
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
 @override final  String id;
@@ -225,6 +226,15 @@ class _UserModel extends UserModel {
 @override final  String? phoneNumber;
 @override final  UserRole? role;
 @override final  String? profilePicture;
+ final  List<String>? _reports;
+@override List<String>? get reports {
+  final value = _reports;
+  if (value == null) return null;
+  if (_reports is EqualUnmodifiableListView) return _reports;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.address, address) || other.address == address)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.role, role) || other.role == role)&&(identical(other.profilePicture, profilePicture) || other.profilePicture == profilePicture));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.address, address) || other.address == address)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.role, role) || other.role == role)&&(identical(other.profilePicture, profilePicture) || other.profilePicture == profilePicture)&&const DeepCollectionEquality().equals(other._reports, _reports));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,address,phoneNumber,role,profilePicture);
+int get hashCode => Object.hash(runtimeType,id,name,email,address,phoneNumber,role,profilePicture,const DeepCollectionEquality().hash(_reports));
 
 @override
 String toString() {
-  return 'UserModel(id: $id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber, role: $role, profilePicture: $profilePicture)';
+  return 'UserModel(id: $id, name: $name, email: $email, address: $address, phoneNumber: $phoneNumber, role: $role, profilePicture: $profilePicture, reports: $reports)';
 }
 
 
@@ -259,7 +269,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? name, String? email, String? address, String? phoneNumber, UserRole? role, String? profilePicture
+ String id, String? name, String? email, String? address, String? phoneNumber, UserRole? role, String? profilePicture, List<String>? reports
 });
 
 
@@ -276,7 +286,7 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = freezed,Object? email = freezed,Object? address = freezed,Object? phoneNumber = freezed,Object? role = freezed,Object? profilePicture = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = freezed,Object? email = freezed,Object? address = freezed,Object? phoneNumber = freezed,Object? role = freezed,Object? profilePicture = freezed,Object? reports = freezed,}) {
   return _then(_UserModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -285,7 +295,8 @@ as String?,address: freezed == address ? _self.address : address // ignore: cast
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String?,role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as UserRole?,profilePicture: freezed == profilePicture ? _self.profilePicture : profilePicture // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,reports: freezed == reports ? _self._reports : reports // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 

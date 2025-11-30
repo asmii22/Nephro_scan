@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:nephroscan/core/firebase_client/firestore_client.dart';
 
 import '../../features/sign_in_sign_up_screen/data/models/user_model/user_model.dart';
 
@@ -21,12 +20,9 @@ class AuthFirebaseClient {
   final FirebaseAuth _auth;
   final FirebaseFirestore _storage;
 
-  AuthFirebaseClient({
-    FirebaseAuth? auth,
-    FirebaseFirestore? storage,
-    required FirestoreClient firestoreClient,
-  }) : _auth = auth ?? FirebaseAuth.instance,
-       _storage = storage ?? FirebaseFirestore.instance;
+  AuthFirebaseClient({FirebaseAuth? auth, FirebaseFirestore? storage})
+    : _auth = auth ?? FirebaseAuth.instance,
+      _storage = storage ?? FirebaseFirestore.instance;
 
   Future<UserCredential> signIn({
     required String email,

@@ -43,3 +43,7 @@ class PNGIcons {
   // static const String facebook = 'assets/icons/facebook.png';
   // static const String twitter = 'assets/icons/twitter.png';
 }
+
+class MlModels {
+  static const String ctScanModel = 'assets/models/model.tflite';
+}
