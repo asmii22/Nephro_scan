@@ -1,11 +1,13 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image/image.dart' as img;
 import 'package:nephroscan/base/base.dart';
+import 'package:nephroscan/base/utils/ct_scan_model.dart';
 import 'package:nephroscan/core_ui/custom_loading.dart';
-import 'package:nephroscan/features/ct_scan_screen/data/models/report_model.dart';
 import 'package:nephroscan/routes/auto_router.gr.dart';
 
 import '../../../../core/media_picker/media_picker_config.dart';
@@ -24,6 +26,12 @@ class CtScanScreen extends StatefulWidget {
 
 class _CtScanScreenState extends State<CtScanScreen> {
   final ValueNotifier<File?> _pickedImageNotifier = ValueNotifier<File?>(null);
+  final model = CtScanModel();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -40,7 +48,7 @@ class _CtScanScreenState extends State<CtScanScreen> {
       types: [MediaType.image],
       sources: [source],
       config: MediaPickerConfig(
-        cropsImage: true, // Disable cropping to avoid UCrop issues
+        cropsImage: false, // Disable cropping to avoid UCrop issues
       ),
       onSuccess: (p0) async {
         if (p0.isEmpty) {
@@ -48,20 +56,31 @@ class _CtScanScreenState extends State<CtScanScreen> {
         }
         final selectedFile = File(p0.first.file.path);
         _pickedImageNotifier.value = selectedFile;
+        await model.loadModel();
 
-        final report = ReportModel(
-          id: '',
-          patientId: '',
-          doctorId: '',
-          title: AppStrings.reportTitle,
-          description: AppStrings.reportDescription,
-          date: DateTime.now(),
-          ctScanImageUrl: '',
+        final fileImage = img.decodeImage(await selectedFile.readAsBytes())!;
+        final prediction = model.predict(fileImage);
+        log('the prediction is $prediction');
+
+        int predictedClass = prediction.indexWhere(
+          (val) => val == prediction.reduce((a, b) => a > b ? a : b),
         );
-        context.read<CtScanUploadCubit>().uploadCtScanData(
-          report: report,
-          ctScanFile: selectedFile,
-        );
+
+        log("Predicted class: $predictedClass");
+
+        // final report = ReportModel(
+        //   id: '',
+        //   patientId: '',
+        //   doctorId: '',
+        //   title: AppStrings.reportTitle,
+        //   description: AppStrings.reportDescription,
+        //   date: DateTime.now(),
+        //   ctScanImageUrl: '',
+        // );
+        // context.read<CtScanUploadCubit>().uploadCtScanData(
+        //   report: report,
+        //   ctScanFile: selectedFile,
+        // );
       },
       onError: (p0) {
         if (!context.mounted) return;
