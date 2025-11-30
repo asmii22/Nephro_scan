@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nephroscan/core/injection/injection.dart';
 import 'package:nephroscan/features/sign_in_sign_up_screen/cubit/user_sign_in_cubit/user_sign_in_cubit.dart';
 
+import '../../features/ct_scan_screen/presentation/cubit/ct_scan_upload_cubit/ct_scan_upload_cubit.dart';
 import '../../features/dashboard_screen/presentation/cubit/nav_bar_cubit/nav_bar_cubit.dart';
 
 class AppBlocWrapper extends StatelessWidget {
@@ -15,6 +16,9 @@ class AppBlocWrapper extends StatelessWidget {
       providers: [
         BlocProvider<NavBarCubit>(create: (_) => getIt<NavBarCubit>()),
         BlocProvider<UserSignInCubit>(create: (_) => getIt<UserSignInCubit>()),
+        BlocProvider<CtScanUploadCubit>(
+          create: (_) => getIt<CtScanUploadCubit>(),
+        ),
       ],
       child: child,
     );

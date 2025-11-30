@@ -15,6 +15,7 @@ abstract class UserModel with _$UserModel {
     String? phoneNumber,
     UserRole? role,
     String? profilePicture,
+    List<String>? reports,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) =>

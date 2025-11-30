@@ -14,6 +14,9 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   phoneNumber: json['phoneNumber'] as String?,
   role: $enumDecodeNullable(_$UserRoleEnumMap, json['role']),
   profilePicture: json['profilePicture'] as String?,
+  reports: (json['reports'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
 );
 
 Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
@@ -25,6 +28,7 @@ Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
       'phoneNumber': instance.phoneNumber,
       'role': _$UserRoleEnumMap[instance.role],
       'profilePicture': instance.profilePicture,
+      'reports': instance.reports,
     };
 
 const _$UserRoleEnumMap = {
