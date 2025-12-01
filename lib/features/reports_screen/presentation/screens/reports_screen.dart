@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/features/reports_screen/presentation/widgets/single_report_widget.dart';
+import 'package:nephroscan/routes/auto_router.gr.dart';
 
 import '../cubit/reports_cubit/reports_cubit.dart';
 
@@ -30,8 +31,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
         builder: (context, state) {
           return state.when(
             initial: () => SizedBox.shrink(),
-            loading: () =>
-                CircularProgressIndicator(color: AppColors.appearance),
+            loading: () => Center(
+              child: CircularProgressIndicator(color: AppColors.appearance),
+            ),
             success: (data) {
               if (data == null || data.isEmpty) {
                 return Center(
@@ -50,6 +52,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     date: data[index].date,
                     reportDescription: data[index].description,
                     reportTitle: data[index].title,
+                    onTap: () {
+                      context.router.push(
+                        SingleReportRoute(report: data[index]),
+                      );
+                    },
                   ),
                   separatorBuilder: (BuildContext context, int index) {
                     return 14.verticalBox;
