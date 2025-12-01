@@ -9,7 +9,9 @@ import 'package:nephroscan/routes/auto_router.gr.dart';
 
 @RoutePage()
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+  const SettingScreen({super.key, this.userName, this.userEmail});
+  final String? userName;
+  final String? userEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +46,15 @@ class SettingScreen extends StatelessWidget {
                 ),
                 10.verticalBox,
                 Text(
-                  'User Name',
+                  userName ?? 'User Name',
                   style: AppTextStyles.titleMediumPoppins.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text('abc@gmail.com', style: AppTextStyles.titleSmallPoppins),
+                Text(
+                  userEmail ?? 'email@gmail.com',
+                  style: AppTextStyles.titleSmallPoppins,
+                ),
                 10.verticalBox,
                 _SettingComponent(
                   title: 'Appearance',

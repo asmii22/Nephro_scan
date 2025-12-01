@@ -27,8 +27,24 @@ import 'package:nephroscan/features/ct_scan_screen/domain/repositories/ct_scan_r
     as _i764;
 import 'package:nephroscan/features/ct_scan_screen/presentation/cubit/ct_scan_upload_cubit/ct_scan_upload_cubit.dart'
     as _i409;
+import 'package:nephroscan/features/dashboard_screen/data/datasources/dashboard_remote_datasource.dart'
+    as _i829;
+import 'package:nephroscan/features/dashboard_screen/data/repositories/dashboard_repository_impl.dart'
+    as _i679;
+import 'package:nephroscan/features/dashboard_screen/domain/repositories/dashboard_repository.dart'
+    as _i88;
 import 'package:nephroscan/features/dashboard_screen/presentation/cubit/nav_bar_cubit/nav_bar_cubit.dart'
     as _i701;
+import 'package:nephroscan/features/dashboard_screen/presentation/cubit/user_info_cubit/user_info_cubit.dart'
+    as _i783;
+import 'package:nephroscan/features/reports_screen/data/datasources/report_remote_datasource.dart'
+    as _i968;
+import 'package:nephroscan/features/reports_screen/data/repositories/report_repository_impl.dart'
+    as _i569;
+import 'package:nephroscan/features/reports_screen/domain/repositories/report_repository.dart'
+    as _i355;
+import 'package:nephroscan/features/reports_screen/presentation/cubit/reports_cubit/reports_cubit.dart'
+    as _i979;
 import 'package:nephroscan/features/sign_in_sign_up_screen/cubit/user_sign_in_cubit/user_sign_in_cubit.dart'
     as _i291;
 import 'package:nephroscan/features/sign_in_sign_up_screen/data/datasources/sign_up_remote_datasource.dart'
@@ -71,11 +87,39 @@ extension GetItInjectableX on _i174.GetIt {
         storage: gh<_i974.FirebaseFirestore>(),
       ),
     );
+    gh.lazySingleton<_i829.DashboardRemoteDataSource>(
+      () => _i829.DashboardRemoteDataSourceImpl(
+        gh<_i700.AuthorizedFirebaseClient>(),
+      ),
+    );
     gh.lazySingleton<_i718.CtScanDataSource>(
       () => _i718.CtScanDataSourceImpl(gh<_i700.AuthorizedFirebaseClient>()),
     );
     gh.lazySingleton<_i899.SignUpRemoteDataSource>(
       () => _i899.SignUpRemoteDataSourceImpl(gh<_i1059.AuthFirebaseClient>()),
+    );
+    gh.lazySingleton<_i968.ReportRemoteDatasource>(
+      () => _i968.ReportRemoteDatasourceImpl(
+        gh<_i700.AuthorizedFirebaseClient>(),
+      ),
+    );
+    gh.lazySingleton<_i355.ReportRepository>(
+      () => _i569.ReportRepositoryImpl(
+        remoteDataSource: gh<_i968.ReportRemoteDatasource>(),
+      ),
+    );
+    gh.lazySingleton<_i88.DashboardRepository>(
+      () => _i679.DashboardRepositoryImpl(
+        remoteDataSource: gh<_i829.DashboardRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i979.ReportsCubit>(
+      () => _i979.ReportsCubit(reportRepository: gh<_i355.ReportRepository>()),
+    );
+    gh.factory<_i783.UserInfoCubit>(
+      () => _i783.UserInfoCubit(
+        dashboardRepository: gh<_i88.DashboardRepository>(),
+      ),
     );
     gh.lazySingleton<_i764.CtScanRepository>(
       () => _i100.CtScanRepositoryImpl(

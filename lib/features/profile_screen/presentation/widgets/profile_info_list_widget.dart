@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/base.dart';
 
+import '../../../sign_in_sign_up_screen/data/models/user_model/user_model.dart';
+
 class ProfileInfoListWidget extends StatefulWidget {
   final Widget saveButton;
   final List<String>? initialValues; // [email, number, address]
-
+  final UserModel? userModel;
   const ProfileInfoListWidget({
     super.key,
     required this.saveButton,
     this.initialValues,
+    this.userModel,
   });
 
   @override
@@ -96,9 +99,13 @@ class _ProfileInfoListWidgetState extends State<ProfileInfoListWidget> {
                         onSubmitted: (_) => _toggleEditing(i),
                       )
                     : Text(
-                        _controllers[i].text.isEmpty
-                            ? 'abc@gmail.com'
-                            : _controllers[i].text,
+                        i == 0
+                            ? widget.userModel?.email ?? 'abc@gmail.com'
+                            : i == 1
+                            ? widget.userModel?.phoneNumber ?? '+1234567890'
+                            : widget.userModel?.address ??
+                                  '123, Main Street, City',
+
                         style: AppTextStyles.bodyMediumPoppins,
                       ),
                 trailing: TextButton(

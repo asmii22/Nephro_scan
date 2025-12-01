@@ -94,7 +94,7 @@ class _CtScanScreenState extends State<CtScanScreen> {
           findings: data?.response?.findings,
           impression: data?.response?.impression,
           description: data?.response?.description,
-          date: DateTime.now(),
+          date: DateTime.now().toIso8601String(),
           ctScanImageUrl: '',
         );
         _ctScanUploadCubit.uploadCtScanData(

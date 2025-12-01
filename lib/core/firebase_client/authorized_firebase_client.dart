@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/features/ct_scan_screen/data/models/report_model.dart';
+import 'package:nephroscan/features/sign_in_sign_up_screen/data/models/user_model/user_model.dart';
 import 'package:uuid/uuid.dart';
 
 @LazySingleton()
@@ -64,6 +65,49 @@ class AuthorizedFirebaseClient {
       );
     } catch (e) {
       throw Exception('Report upload failed: $e');
+    }
+  }
+
+  Future<UserModel?> getUserInfo() async {
+    try {
+      final uid = currentUserId;
+      if (uid == null) {
+        throw Exception('User is not authenticated');
+      }
+      final doc = await _storage
+          ?.collection(AppStrings.usersCollection)
+          .doc(uid)
+          .get();
+      if (doc == null || !doc.exists) {
+        throw Exception('User document does not exist');
+      }
+      final data = doc.data();
+      if (data != null) {
+        return UserModel.fromJson(data);
+      }
+      // Process user data as needed
+    } catch (e) {
+      throw Exception('Failed to get user info: $e');
+    }
+    return null;
+  }
+
+  Future<List<ReportModel>?> getReportsByIds(List<String>? reportIds) async {
+    try {
+      if (reportIds == null || reportIds.isEmpty) {
+        return [];
+      }
+      final collection = _storage?.collection(AppStrings.reportCollection);
+      final querySnapshot = await collection
+          ?.where('id', whereIn: reportIds)
+          .get();
+      final reports = querySnapshot?.docs.map((doc) {
+        final data = doc.data();
+        return ReportModel.fromJson(data);
+      }).toList();
+      return reports;
+    } catch (e) {
+      throw Exception('Failed to get reports: $e');
     }
   }
 }

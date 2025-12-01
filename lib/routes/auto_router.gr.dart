@@ -10,9 +10,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:collection/collection.dart' as _i10;
+import 'package:flutter/material.dart' as _i9;
 import 'package:nephroscan/features/auth_wrapper/auth_wrapper_screen.dart'
     as _i1;
-import 'package:nephroscan/features/dashboard_screen/dashboard_screen.dart'
+import 'package:nephroscan/features/dashboard_screen/presentation/screens/dashboard_screen.dart'
     as _i2;
 import 'package:nephroscan/features/onboarding_screen/onboarding_screen.dart'
     as _i3;
@@ -74,34 +76,115 @@ class OnboardingRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.ReportsScreen]
-class ReportsRoute extends _i8.PageRouteInfo<void> {
-  const ReportsRoute({List<_i8.PageRouteInfo>? children})
-    : super(ReportsRoute.name, initialChildren: children);
+class ReportsRoute extends _i8.PageRouteInfo<ReportsRouteArgs> {
+  ReportsRoute({
+    _i9.Key? key,
+    List<String>? reportIds,
+    List<_i8.PageRouteInfo>? children,
+  }) : super(
+         ReportsRoute.name,
+         args: ReportsRouteArgs(key: key, reportIds: reportIds),
+         initialChildren: children,
+       );
 
   static const String name = 'ReportsRoute';
 
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i4.ReportsScreen();
+      final args = data.argsAs<ReportsRouteArgs>(
+        orElse: () => const ReportsRouteArgs(),
+      );
+      return _i4.ReportsScreen(key: args.key, reportIds: args.reportIds);
     },
   );
 }
 
+class ReportsRouteArgs {
+  const ReportsRouteArgs({this.key, this.reportIds});
+
+  final _i9.Key? key;
+
+  final List<String>? reportIds;
+
+  @override
+  String toString() {
+    return 'ReportsRouteArgs{key: $key, reportIds: $reportIds}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ReportsRouteArgs) return false;
+    return key == other.key &&
+        const _i10.ListEquality<String>().equals(reportIds, other.reportIds);
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ const _i10.ListEquality<String>().hash(reportIds);
+}
+
 /// generated route for
 /// [_i5.SettingScreen]
-class SettingRoute extends _i8.PageRouteInfo<void> {
-  const SettingRoute({List<_i8.PageRouteInfo>? children})
-    : super(SettingRoute.name, initialChildren: children);
+class SettingRoute extends _i8.PageRouteInfo<SettingRouteArgs> {
+  SettingRoute({
+    _i9.Key? key,
+    String? userName,
+    String? userEmail,
+    List<_i8.PageRouteInfo>? children,
+  }) : super(
+         SettingRoute.name,
+         args: SettingRouteArgs(
+           key: key,
+           userName: userName,
+           userEmail: userEmail,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'SettingRoute';
 
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i5.SettingScreen();
+      final args = data.argsAs<SettingRouteArgs>(
+        orElse: () => const SettingRouteArgs(),
+      );
+      return _i5.SettingScreen(
+        key: args.key,
+        userName: args.userName,
+        userEmail: args.userEmail,
+      );
     },
   );
+}
+
+class SettingRouteArgs {
+  const SettingRouteArgs({this.key, this.userName, this.userEmail});
+
+  final _i9.Key? key;
+
+  final String? userName;
+
+  final String? userEmail;
+
+  @override
+  String toString() {
+    return 'SettingRouteArgs{key: $key, userName: $userName, userEmail: $userEmail}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SettingRouteArgs) return false;
+    return key == other.key &&
+        userName == other.userName &&
+        userEmail == other.userEmail;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userName.hashCode ^ userEmail.hashCode;
 }
 
 /// generated route for
