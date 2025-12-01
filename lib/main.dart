@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:nephroscan/base/app_common_widget/app_bloc_wrapper.dart';
 import 'package:nephroscan/firebase_options.dart';
@@ -13,6 +14,9 @@ import 'core/injection/injection.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  await dotenv.load(fileName: ".env");
 
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);

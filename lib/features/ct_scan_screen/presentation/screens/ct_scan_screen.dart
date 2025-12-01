@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -11,7 +10,6 @@ import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/base/utils/ct_scan_model.dart';
 import 'package:nephroscan/core_ui/custom_loading.dart';
 import 'package:nephroscan/features/ct_scan_screen/data/models/gemini_response_model.dart';
-import 'package:nephroscan/routes/auto_router.gr.dart';
 
 import '../../../../core/media_picker/media_picker_config.dart';
 import '../../../../core/media_picker/media_picker_service.dart';
@@ -30,6 +28,7 @@ class CtScanScreen extends StatefulWidget {
 
 class _CtScanScreenState extends State<CtScanScreen> {
   final ValueNotifier<File?> _pickedImageNotifier = ValueNotifier<File?>(null);
+  final ValueNotifier<bool> _isProcessing = ValueNotifier<bool>(false);
   final model = CtScanModel();
 
   late final GenerativeModel _model;
@@ -53,6 +52,7 @@ class _CtScanScreenState extends State<CtScanScreen> {
   @override
   void dispose() {
     _pickedImageNotifier.dispose();
+    _isProcessing.dispose();
     super.dispose();
   }
 
@@ -71,38 +71,51 @@ class _CtScanScreenState extends State<CtScanScreen> {
         if (p0.isEmpty) {
           return;
         }
-        final selectedFile = File(p0.first.file.path);
-        _pickedImageNotifier.value = selectedFile;
-        await model.loadModel();
 
-        final fileImage = img.decodeImage(await selectedFile.readAsBytes())!;
-        final prediction = model.predict(fileImage);
-        log('the prediction is $prediction');
+        try {
+          _isProcessing.value = true;
 
-        int predictedClass = prediction.indexWhere(
-          (val) => val == prediction.reduce((a, b) => a > b ? a : b),
-        );
+          final selectedFile = File(p0.first.file.path);
+          _pickedImageNotifier.value = selectedFile;
+          await model.loadModel();
 
-        var data = await _generateMedicalExplanation(predictedClass);
-        log('here is the data from gemini ${data?.response?.title}');
+          final fileImage = img.decodeImage(await selectedFile.readAsBytes())!;
+          final prediction = model.predict(fileImage);
+          log('the prediction is $prediction');
 
-        final report = ReportModel(
-          id: '',
-          patientId: '',
-          doctorId: '',
-          title: data?.response?.title,
-          findings: data?.response?.findings,
-          impression: data?.response?.impression,
-          description: data?.response?.description,
-          date: DateTime.now().toIso8601String(),
-          ctScanImageUrl: '',
-        );
-        _ctScanUploadCubit.uploadCtScanData(
-          report: report,
-          ctScanFile: selectedFile,
-        );
+          int predictedClass = prediction.indexWhere(
+            (val) => val == prediction.reduce((a, b) => a > b ? a : b),
+          );
+
+          var data = await _generateMedicalExplanation(predictedClass);
+          log('here is the data from gemini ${data?.response?.title}');
+
+          final report = ReportModel(
+            id: '',
+            patientId: '',
+            doctorId: '',
+            title: data?.response?.title,
+            findings: data?.response?.findings,
+            impression: data?.response?.impression,
+            description: data?.response?.description,
+            date: DateTime.now().toIso8601String(),
+            ctScanImageUrl: '',
+          );
+
+          _ctScanUploadCubit.uploadCtScanData(
+            report: report,
+            ctScanFile: selectedFile,
+          );
+        } catch (e) {
+          _isProcessing.value = false;
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error processing image: ${e.toString()}')),
+          );
+        }
       },
       onError: (p0) {
+        _isProcessing.value = false;
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to pick image: ${p0.toString()}')),
@@ -121,8 +134,10 @@ class _CtScanScreenState extends State<CtScanScreen> {
               initial: () {},
               loading: () => CustomLoading().show(context),
               success: () {
+                _isProcessing.value = false;
                 CustomLoading().hide();
-                context.router.push(ReportsRoute());
+
+                // context.router.push(ReportsRoute());
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('CT Scan uploaded successfully'),
@@ -130,6 +145,7 @@ class _CtScanScreenState extends State<CtScanScreen> {
                 );
               },
               error: (message) {
+                _isProcessing.value = false;
                 CustomLoading().hide();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Failed to upload CT Scan')),
@@ -137,57 +153,88 @@ class _CtScanScreenState extends State<CtScanScreen> {
               },
             );
           },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(PNGImages.uploadImage, width: 200, height: 200),
-              Text(
-                'Upload CT Scan',
-                style: AppTextStyles.titleLargeMontserrat.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.only(
-                  top: 24.0,
-                  left: 12.0,
-                  right: 12.0,
-                  bottom: 18.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).disabledColor.withValues(alpha: 0.04),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: ValueListenableBuilder<bool>(
+            valueListenable: _isProcessing,
+            builder: (context, isProcessing, child) {
+              if (isProcessing) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    MediaSingleWidget(
-                      media: 'Camera',
-                      iconData: Icons.camera_alt_outlined,
-                      onTap: () =>
-                          _handleImagePick(context, MediaSource.camera),
+                    const CircularProgressIndicator(),
+                    16.verticalBox,
+                    Text(
+                      'Processing CT Scan...',
+                      style: AppTextStyles.bodyMediumPoppins.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    MediaSingleWidget(
-                      media: 'Photos',
-                      iconData: Icons.photo_library_outlined,
-                      onTap: () =>
-                          _handleImagePick(context, MediaSource.gallery),
-                    ),
-                    MediaSingleWidget(
-                      media: 'Files',
-                      iconData: Icons.folder_outlined,
-                      onTap: () => _handleImagePick(context, MediaSource.files),
+                    8.verticalBox,
+                    Text(
+                      'Please wait while we analyze the image',
+                      style: AppTextStyles.bodySmallPoppins.copyWith(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
                     ),
                   ],
-                ),
-              ),
-            ],
+                );
+              }
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(PNGImages.uploadImage, width: 200, height: 200),
+                  Text(
+                    'Upload CT Scan',
+                    style: AppTextStyles.titleLargeMontserrat.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.only(
+                      top: 24.0,
+                      left: 12.0,
+                      right: 12.0,
+                      bottom: 18.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(
+                        context,
+                      ).disabledColor.withValues(alpha: 0.04),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        MediaSingleWidget(
+                          media: 'Camera',
+                          iconData: Icons.camera_alt_outlined,
+                          onTap: () =>
+                              _handleImagePick(context, MediaSource.camera),
+                        ),
+                        MediaSingleWidget(
+                          media: 'Photos',
+                          iconData: Icons.photo_library_outlined,
+                          onTap: () =>
+                              _handleImagePick(context, MediaSource.gallery),
+                        ),
+                        MediaSingleWidget(
+                          media: 'Files',
+                          iconData: Icons.folder_outlined,
+                          onTap: () =>
+                              _handleImagePick(context, MediaSource.files),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -220,53 +267,55 @@ class _CtScanScreenState extends State<CtScanScreen> {
     try {
       final prompt =
           """
-You are a medical assistant designed to provide detailed explanations for predicted medical conditions from images. Based on the model's output, you will generate a structured response in JSON format with findings, impression, title, and description.
+You are a medical assistant designed to provide detailed explanations for predicted medical conditions from images. Based on the model's output, you will generate a structured response in **English** in JSON format with findings, impression, title, and description.
 
-The predicted class is: $predictedClass
-Where: 0 = Cyst, 1 = Normal, 2 = Stone, 3 = Tumor
+The predicted class is: $predictedClass  
+Where: 
+  - 0 = Cyst, 
+  - 1 = Normal, 
+  - 2 = Stone, 
+  - 3 = Tumor
 
-#### Instructions:
-- Your task is to interpret the class prediction (as an integer) and generate a comprehensive explanation for the detected condition.
-- The explanation should be suitable for a medical report, providing the following:
-  - **Findings**: A detailed description of the detected condition based on the class prediction. This should cover specific features observed in the image (e.g., shape, location, or size of abnormalities).
-  - **Impression**: A brief medical diagnosis or conclusion based on the condition detected by the model. This section should provide a general overview, such as whether the condition is benign, malignant, or normal.
-  - **Title**: A short label for the condition detected, such as "Cyst", "Tumor", "Normal Kidney", or "Kidney Stone".
-  - **Description**: A detailed narrative about the condition, explaining its characteristics, potential health risks, and treatment options (if applicable). Provide a general medical understanding of the condition, including common management strategies.
+### Instructions:
+Your task is to generate a comprehensive explanation for the detected condition based on the class prediction provided above. Please ensure the explanation is suitable for a medical report, with the following components:
 
-### Conditions and Their Explanations:
-1. **Cyst (Benign)**:
-    - **Findings**: The model has detected a cyst in the kidney. The cyst appears as a smooth, fluid-filled sac with regular edges. It is located near the upper part of the kidney with no significant irregularities in surrounding tissues.
-    - **Impression**: The condition is classified as a benign cyst, which is non-cancerous. The cyst is likely stable and may not require immediate intervention. However, periodic monitoring is recommended to ensure no changes in size or structure.
-    - **Title**: Cyst (Benign)
-    - **Description**: A kidney cyst is typically a benign, fluid-filled sac that forms within the kidney. Most kidney cysts are asymptomatic and do not require treatment, but monitoring for growth is advised. While the majority of kidney cysts are harmless, it is important to differentiate them from other conditions like tumors, which may require further investigation.
+1. **Title**:  
+   Generate a short and informative title for the condition. The title should be descriptive, concise, and relevant to the predicted condition. It should accurately represent the condition detected based on the provided information. The title can include terms like "Benign", "Malignant", "Abnormal", etc., depending on the nature of the condition.
 
-2. **Normal Kidney**:
-    - **Findings**: The model detected no abnormalities in the kidney. The kidney appears to be of normal size and structure with no visible cysts, stones, or tumors.
-    - **Impression**: The kidney is normal with no visible signs of disease or abnormality. No further action is needed.
-    - **Title**: Normal Kidney
-    - **Description**: The kidney appears healthy with no visible signs of any medical conditions. It is functioning well and no intervention is needed. Maintaining a healthy lifestyle and regular medical check-ups are recommended to ensure continued kidney health.
+2. **Findings**:  
+   Provide a detailed description of the detected condition. This should be a clear interpretation of what is observed in the image. You can mention the shape, size, location, and any other relevant features of the detected condition. The findings should be based on the class prediction but can be more specific to the image’s features.
 
-3. **Kidney Stone**:
-    - **Findings**: The model detected a kidney stone within the kidney. The stone appears as a dense, calcified mass within the renal parenchyma. The stone is of medium size and is located near the renal pelvis.
-    - **Impression**: The kidney stone is detected, and depending on its size and location, it may cause pain or blockage. If the stone is small, it may pass naturally, but larger stones may require medical intervention such as lithotripsy or surgical removal.
-    - **Title**: Kidney Stone
-    - **Description**: Kidney stones are hard mineral deposits that form in the kidneys. They can cause pain when moving through the urinary tract, especially during urination. Treatment may involve hydration, pain management, and in some cases, surgical procedures like lithotripsy or nephrolithotomy. Stones larger than a certain size may require medical intervention to prevent complications.
+3. **Impression**:  
+   Give a brief medical diagnosis or conclusion based on the findings. The impression should provide a quick overview, such as whether the condition is benign, malignant, or normal. This is the medical conclusion that will guide further actions or observation.
 
-4. **Kidney Tumor**:
-    - **Findings**: The model detected an abnormal mass in the kidney, which could be indicative of a tumor. The tumor appears irregular in shape with some distortion of the surrounding renal tissue.
-    - **Impression**: A kidney tumor is suspected. This condition requires further investigation, including imaging studies (e.g., CT scan) and possibly a biopsy to determine whether the tumor is benign or malignant.
-    - **Title**: Kidney Tumor
-    - **Description**: Kidney tumors can be benign or malignant. Malignant tumors, like renal cell carcinoma, require prompt medical attention, often including surgery, chemotherapy, or radiation therapy. A biopsy is necessary to determine the exact nature of the tumor. Early diagnosis and treatment are critical for better outcomes.
+4. **Description**:  
+   Provide a comprehensive narrative about the condition. This should include:
+   - A deeper explanation of what the condition is.
+   - Potential risks or complications associated with the condition (if applicable).
+   - Treatment or management options, including recommendations or lifestyle changes that may help manage the condition.
+   - The description should go beyond the findings and provide a fuller understanding of the condition, its impact, and medical implications.
 
-### Example of Output:
+### Conditions and Their Explanations (Class Prediction Reference):
+- **0: Cyst (Benign)**:  
+  The AI is free to generate a description that explains what a cyst is, how it behaves, and what medical action, if any, is required.
 
+- **1: Normal Kidney**:  
+  The AI should generate a positive report with a clear confirmation that the kidney is healthy and normal. This may include the absence of abnormal conditions like cysts, stones, or tumors.
+
+- **2: Kidney Stone**:  
+  The AI should describe what a kidney stone is, its size, and how it affects kidney function. The description may include treatment options such as hydration or surgical interventions.
+
+- **3: Kidney Tumor**:  
+  The AI should generate a more detailed report, explaining the potential implications of a kidney tumor, including the need for additional tests, biopsy, or possible treatments.
+
+### Example of Expected Output:
 {
   "message": "success",
   "response": {
-    "findings": "The input image shows a smooth, circular cyst located near the upper part of the kidney. The surrounding tissue appears unaffected, and no other abnormalities are present.",
-    "impression": "The image is classified as a benign cyst. This is a non-cancerous condition that typically requires no treatment but should be monitored periodically for any changes.",
-    "title": "Cyst (Benign)",
-    "description": "A kidney cyst is a fluid-filled sac that is generally harmless. Most cysts are asymptomatic, but larger cysts may cause discomfort or affect kidney function. Regular monitoring is recommended to ensure no changes in size or other complications arise."
+    "findings": "The model detected a smooth, round mass within the kidney. It appears well-defined, with no signs of invasion into surrounding tissues. The mass is of moderate size and does not exhibit irregular edges.",
+    "impression": "The mass is consistent with a benign cyst, likely stable. It requires periodic monitoring to ensure no changes in size or behavior.",
+    "title": "Benign Kidney Cyst",
+    "description": "A kidney cyst is typically a fluid-filled sac that forms inside the kidney. Most cysts are harmless and do not require treatment. However, if a cyst grows or causes pain, it may need to be monitored or treated. Regular check-ups and imaging are recommended to track its size."
   }
 }
 
@@ -320,5 +369,6 @@ dont use any other language other than English.
         );
       }
     }
+    return null;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppStrings {
   static const String appName = 'CT Scan Diagnosis';
@@ -51,7 +52,7 @@ class AppStrings {
 }
 
 class GoogleCredentials {
-  static const String apiKey = "AIzaSyBIDNoXo2O0Eip2xu7BYL9Z2eZ5QOFkMgI";
+  static String get apiKey => dotenv.env['GEMINI_API_KEY'] ?? '';
 }
 
 extension ExtString on String {
