@@ -49,6 +49,7 @@ class AuthorizedFirebaseClient {
       final updatedReport = report.copyWith(
         id: reportId,
         ctScanImageUrl: ctScanImageUrl,
+        patientId: currentUserId,
       );
       final collection = _storage?.collection(AppStrings.reportCollection);
       await collection?.doc(reportId).set(updatedReport.toJson()).whenComplete(

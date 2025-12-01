@@ -7,7 +7,8 @@ import 'package:nephroscan/routes/auto_router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(path: '/SignIn', page: SignInRoute.page, initial: true),
+    AutoRoute(path: '/', page: AuthWrapperRoute.page, initial: true),
+    AutoRoute(path: '/SignIn', page: SignInRoute.page),
     AutoRoute(path: '/SignUp', page: SignUpRoute.page),
     AutoRoute(path: '/Onboarding', page: OnboardingRoute.page),
     AutoRoute(path: '/Dashboard', page: DashboardRoute.page),

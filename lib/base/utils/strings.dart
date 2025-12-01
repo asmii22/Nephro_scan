@@ -50,6 +50,10 @@ class AppStrings {
       "Further tests and medical consultation are required for diagnosis and treatment.";
 }
 
+class GoogleCredentials {
+  static const String apiKey = "AIzaSyBIDNoXo2O0Eip2xu7BYL9Z2eZ5QOFkMgI";
+}
+
 extension ExtString on String {
   bool get isInvalidEmail {
     final emailRegExp = RegExp(r'^[a-zA-Z0-9.+_]+@[a-zA-Z0-9]+\.[a-zA-Z]+');

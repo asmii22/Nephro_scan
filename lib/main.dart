@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:nephroscan/base/app_common_widget/app_bloc_wrapper.dart';
 import 'package:nephroscan/firebase_options.dart';
 import 'package:nephroscan/routes/auto_router.dart';
@@ -7,6 +8,7 @@ import 'package:nephroscan/theme/app_theme.dart';
 import 'package:nephroscan/theme/theme_manager.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'base/utils/strings.dart';
 import 'core/injection/injection.dart';
 
 Future<void> main() async {
@@ -17,6 +19,7 @@ Future<void> main() async {
     debugPrint('🔴 Flutter Error: ${details.exception}');
     debugPrint('Stack trace: ${details.stack}');
   };
+  Gemini.init(apiKey: GoogleCredentials.apiKey, enableDebugging: true);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
