@@ -30,7 +30,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
         builder: (context, state) {
           return state.when(
             initial: () => SizedBox.shrink(),
-            loading: () => Center(child: CircularProgressIndicator()),
+            loading: () =>
+                CircularProgressIndicator(color: AppColors.appearance),
             success: (data) {
               if (data == null || data.isEmpty) {
                 return Center(
