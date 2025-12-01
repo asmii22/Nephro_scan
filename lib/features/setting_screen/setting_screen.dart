@@ -9,7 +9,9 @@ import 'package:nephroscan/routes/auto_router.gr.dart';
 
 @RoutePage()
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+  const SettingScreen({super.key, this.userName, this.userEmail});
+  final String? userName;
+  final String? userEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -29,131 +31,136 @@ class SettingScreen extends StatelessWidget {
             orElse: () => CustomLoading().hide(),
           );
         },
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    height: 80,
-                    child: ClipRRect(
-                      borderRadius: BorderRadiusGeometry.circular(100),
-                      child: Image.asset(PNGImages.dummy),
-                    ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                  height: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(100),
+                    child: Image.asset(PNGImages.dummy),
                   ),
-                  10.verticalBox,
-                  Text(
-                    'User Name',
-                    style: AppTextStyles.titleMediumPoppins.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                ),
+                10.verticalBox,
+                Text(
+                  userName ?? 'User Name',
+                  style: AppTextStyles.titleMediumPoppins.copyWith(
+                    fontWeight: FontWeight.w600,
                   ),
-                  Text('abc@gmail.com', style: AppTextStyles.titleSmallPoppins),
-                  10.verticalBox,
-                  _SettingComponent(
-                    title: 'Appearance',
-                    iconColor: AppColors.appearance,
-                    iconPath: SVGIcons.appearance,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: 'Notification',
-                    iconColor: AppColors.notification,
-                    iconPath: SVGIcons.notifications,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: 'Privacy',
-                    iconColor: AppColors.privacy,
-                    iconPath: SVGIcons.privacy,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: 'Security',
-                    iconColor: AppColors.security,
-                    iconPath: SVGIcons.security,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: 'Main',
-                    iconColor: AppColors.main,
-                    iconPath: SVGIcons.main,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: 'Language',
-                    iconColor: AppColors.language,
-                    iconPath: SVGIcons.language,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: 'Ask a Question',
-                    iconColor: AppColors.askAQuestion,
-                    iconPath: SVGIcons.questions,
-                    onTap: () {},
-                  ),
-                  _SettingComponent(
-                    title: "FAQ's",
-                    iconColor: AppColors.faqs,
-                    iconPath: SVGIcons.faqs,
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 16,
-              left: 16,
-              right: 16,
-              child: AppButton(
-                title: 'Logout',
-                onClick: () {
-                  return showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Confirm Logout',
-                          style: AppTextStyles.bodyLargePoppins,
-                        ),
-                        content: Text(
-                          'Are you sure you want to logout?',
-                          style: AppTextStyles.bodyMediumPoppins,
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Dismiss the dialog
-                            },
-                            child: Text(
-                              'Cancel',
-                              style: AppTextStyles.bodySmallInter.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                Text(
+                  userEmail ?? 'email@gmail.com',
+                  style: AppTextStyles.titleSmallPoppins,
+                ),
+                10.verticalBox,
+                _SettingComponent(
+                  title: 'Appearance',
+                  iconColor: AppColors.appearance,
+                  iconPath: SVGIcons.appearance,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: 'Notification',
+                  iconColor: AppColors.notification,
+                  iconPath: SVGIcons.notifications,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: 'Privacy',
+                  iconColor: AppColors.privacy,
+                  iconPath: SVGIcons.privacy,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: 'Security',
+                  iconColor: AppColors.security,
+                  iconPath: SVGIcons.security,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: 'Main',
+                  iconColor: AppColors.main,
+                  iconPath: SVGIcons.main,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: 'Language',
+                  iconColor: AppColors.language,
+                  iconPath: SVGIcons.language,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: 'Ask a Question',
+                  iconColor: AppColors.askAQuestion,
+                  iconPath: SVGIcons.questions,
+                  onTap: () {},
+                ),
+                _SettingComponent(
+                  title: "FAQ's",
+                  iconColor: AppColors.faqs,
+                  iconPath: SVGIcons.faqs,
+                  onTap: () {},
+                ),
+                10.verticalBox,
+                AppButton(
+                  title: 'Logout',
+                  onClick: () {
+                    return showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Confirm Logout',
+                            style: AppTextStyles.bodyLargePoppins,
+                          ),
+                          content: Text(
+                            'Are you sure you want to logout?',
+                            style: AppTextStyles.bodyMediumPoppins,
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(
+                                  context,
+                                ).pop(); // Dismiss the dialog
+                              },
+                              child: Text(
+                                'Cancel',
+                                style: AppTextStyles.bodySmallInter.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                ),
                               ),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Dismiss the dialog
-                              context.read<UserSignInCubit>().signOut();
-                            },
-                            child: Text(
-                              'Logout',
-                              style: AppTextStyles.bodySmallInter.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(
+                                  context,
+                                ).pop(); // Dismiss the dialog
+                                context.read<UserSignInCubit>().signOut();
+                              },
+                              child: Text(
+                                'Logout',
+                                style: AppTextStyles.bodySmallInter.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

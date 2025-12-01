@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../base/utils/app_text_styles.dart';
 
 class ProfileContainerWidget extends StatelessWidget {
-  const ProfileContainerWidget({super.key});
+  const ProfileContainerWidget({super.key, this.reportsCount, this.onTap});
+  final int? reportsCount;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,85 +25,88 @@ class ProfileContainerWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '50+',
-                  style: AppTextStyles.bodyLargeInter.copyWith(
-                    fontWeight: FontWeight.w800,
+        child: InkWell(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '50+',
+                    style: AppTextStyles.bodyLargeInter.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                Text(
-                  'Tests',
-                  style: AppTextStyles.bodySmallInter.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                  Text(
+                    'Tests',
+                    style: AppTextStyles.bodySmallInter.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-              child: VerticalDivider(
-                thickness: 2,
-                width: 2,
-                color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-                radius: BorderRadius.circular(10),
+                ],
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '120+',
-                  style: AppTextStyles.bodyLargeInter.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+              SizedBox(
+                height: 30,
+                child: VerticalDivider(
+                  thickness: 2,
+                  width: 2,
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
+                  radius: BorderRadius.circular(10),
                 ),
-                Text(
-                  'Reports',
-                  style: AppTextStyles.bodySmallInter.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onTertiary.withValues(alpha: 0.7),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-              child: VerticalDivider(
-                thickness: 2,
-                width: 2,
-                color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-                radius: BorderRadius.circular(10),
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '5+',
-                  style: AppTextStyles.bodyLargeInter.copyWith(
-                    fontWeight: FontWeight.w800,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    reportsCount?.toString() ?? '120+',
+                    style: AppTextStyles.bodyLargeInter.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                Text(
-                  'Doctors',
-                  style: AppTextStyles.bodySmallInter.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                  Text(
+                    'Reports',
+                    style: AppTextStyles.bodySmallInter.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                    ),
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+                child: VerticalDivider(
+                  thickness: 2,
+                  width: 2,
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
+                  radius: BorderRadius.circular(10),
                 ),
-              ],
-            ),
-          ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '5+',
+                    style: AppTextStyles.bodyLargeInter.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  Text(
+                    'Doctors',
+                    style: AppTextStyles.bodySmallInter.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onTertiary.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

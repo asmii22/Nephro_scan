@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ReportModel {
 
- String? get id; String? get patientId; String? get doctorId; String? get findings; String? get impression; DateTime? get date; String? get title; String? get description; String? get ctScanImageUrl;
+ String? get id; String? get patientId; String? get doctorId; String? get findings; String? get impression; String? get date; String? get title; String? get description; String? get ctScanImageUrl;
 /// Create a copy of ReportModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ReportModelCopyWith<$Res>  {
   factory $ReportModelCopyWith(ReportModel value, $Res Function(ReportModel) _then) = _$ReportModelCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? patientId, String? doctorId, String? findings, String? impression, DateTime? date, String? title, String? description, String? ctScanImageUrl
+ String? id, String? patientId, String? doctorId, String? findings, String? impression, String? date, String? title, String? description, String? ctScanImageUrl
 });
 
 
@@ -73,7 +73,7 @@ as String?,doctorId: freezed == doctorId ? _self.doctorId : doctorId // ignore: 
 as String?,findings: freezed == findings ? _self.findings : findings // ignore: cast_nullable_to_non_nullable
 as String?,impression: freezed == impression ? _self.impression : impression // ignore: cast_nullable_to_non_nullable
 as String?,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,ctScanImageUrl: freezed == ctScanImageUrl ? _self.ctScanImageUrl : ctScanImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? patientId,  String? doctorId,  String? findings,  String? impression,  DateTime? date,  String? title,  String? description,  String? ctScanImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? patientId,  String? doctorId,  String? findings,  String? impression,  String? date,  String? title,  String? description,  String? ctScanImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReportModel() when $default != null:
 return $default(_that.id,_that.patientId,_that.doctorId,_that.findings,_that.impression,_that.date,_that.title,_that.description,_that.ctScanImageUrl);case _:
@@ -182,7 +182,7 @@ return $default(_that.id,_that.patientId,_that.doctorId,_that.findings,_that.imp
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? patientId,  String? doctorId,  String? findings,  String? impression,  DateTime? date,  String? title,  String? description,  String? ctScanImageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? patientId,  String? doctorId,  String? findings,  String? impression,  String? date,  String? title,  String? description,  String? ctScanImageUrl)  $default,) {final _that = this;
 switch (_that) {
 case _ReportModel():
 return $default(_that.id,_that.patientId,_that.doctorId,_that.findings,_that.impression,_that.date,_that.title,_that.description,_that.ctScanImageUrl);case _:
@@ -202,7 +202,7 @@ return $default(_that.id,_that.patientId,_that.doctorId,_that.findings,_that.imp
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? patientId,  String? doctorId,  String? findings,  String? impression,  DateTime? date,  String? title,  String? description,  String? ctScanImageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? patientId,  String? doctorId,  String? findings,  String? impression,  String? date,  String? title,  String? description,  String? ctScanImageUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _ReportModel() when $default != null:
 return $default(_that.id,_that.patientId,_that.doctorId,_that.findings,_that.impression,_that.date,_that.title,_that.description,_that.ctScanImageUrl);case _:
@@ -225,7 +225,7 @@ class _ReportModel extends ReportModel {
 @override final  String? doctorId;
 @override final  String? findings;
 @override final  String? impression;
-@override final  DateTime? date;
+@override final  String? date;
 @override final  String? title;
 @override final  String? description;
 @override final  String? ctScanImageUrl;
@@ -263,7 +263,7 @@ abstract mixin class _$ReportModelCopyWith<$Res> implements $ReportModelCopyWith
   factory _$ReportModelCopyWith(_ReportModel value, $Res Function(_ReportModel) _then) = __$ReportModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? patientId, String? doctorId, String? findings, String? impression, DateTime? date, String? title, String? description, String? ctScanImageUrl
+ String? id, String? patientId, String? doctorId, String? findings, String? impression, String? date, String? title, String? description, String? ctScanImageUrl
 });
 
 
@@ -288,7 +288,7 @@ as String?,doctorId: freezed == doctorId ? _self.doctorId : doctorId // ignore: 
 as String?,findings: freezed == findings ? _self.findings : findings // ignore: cast_nullable_to_non_nullable
 as String?,impression: freezed == impression ? _self.impression : impression // ignore: cast_nullable_to_non_nullable
 as String?,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
-as DateTime?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,ctScanImageUrl: freezed == ctScanImageUrl ? _self.ctScanImageUrl : ctScanImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,

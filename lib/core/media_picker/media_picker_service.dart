@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -87,6 +88,8 @@ class MediaPickerService {
         break;
 
       case MediaSource.files:
+        if (!context.mounted) return;
+        await _pickFromFiles(context);
         break;
     }
   }
@@ -144,6 +147,56 @@ class MediaPickerService {
         _handlePickedMedia(media);
       default:
         break;
+    }
+  }
+
+  Future<void> _pickFromFiles(BuildContext context) async {
+    try {
+      FileType fileType;
+      List<String>? allowedExtensions;
+
+      switch (_pickedMediaType!) {
+        case MediaType.image:
+          fileType = FileType.image;
+          allowedExtensions = null; // Allow all image types
+          break;
+        case MediaType.video:
+          fileType = FileType.video;
+          allowedExtensions = null; // Allow all video types
+          break;
+        default:
+          fileType = FileType.any;
+          allowedExtensions = null;
+      }
+
+      final result = await FilePicker.platform.pickFiles(
+        type: fileType,
+        allowedExtensions: allowedExtensions,
+        allowMultiple: false,
+      );
+
+      if (result == null || result.files.isEmpty) {
+        _onError?.call('No file selected');
+        return;
+      }
+
+      final file = result.files.first;
+      if (file.path == null) {
+        _onError?.call('Error accessing file');
+        return;
+      }
+
+      final xFile = XFile(file.path!);
+
+      // Handle images with optional cropping
+      if (_pickedMediaType == MediaType.image) {
+        if (!context.mounted) return;
+        await _handleImagesForCropping(xFile, context);
+      } else {
+        _handlePickedMedia(xFile);
+      }
+    } catch (e) {
+      _onError?.call('Error picking file: $e');
     }
   }
 

@@ -4,14 +4,16 @@ import 'package:nephroscan/base/base.dart';
 import '../../base/app_common_widget/custom_top_nav_bar/user_avatar_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.username, this.email});
+  final String? username;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomTopNavBar(
         backgroundColor: AppColors.transparent,
-        rightWidget: UserAvatarWidget(),
+        rightWidget: UserAvatarWidget(username: username, email: email),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

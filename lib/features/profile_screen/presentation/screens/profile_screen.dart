@@ -1,10 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/features/profile_screen/presentation/widgets/profile_container_widget.dart';
 import 'package:nephroscan/features/profile_screen/presentation/widgets/profile_info_list_widget.dart';
+import 'package:nephroscan/features/sign_in_sign_up_screen/data/models/user_model/user_model.dart';
+import 'package:nephroscan/routes/auto_router.gr.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, this.userModel});
+  final UserModel? userModel;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -69,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           10.verticalBox,
                           Text(
-                            'John Doe',
+                            widget.userModel?.name ?? 'John Doe',
                             style: AppTextStyles.titleLargeMontserrat,
                           ),
                         ],
@@ -77,10 +81,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                   20.verticalBox,
-                  ProfileContainerWidget(),
+                  ProfileContainerWidget(
+                    reportsCount: widget.userModel?.reports?.length,
+                    onTap: () {
+                      context.router.push(
+                        ReportsRoute(reportIds: widget.userModel?.reports),
+                      );
+                    },
+                  ),
                   20.verticalBox,
                   Expanded(
-                    child: ProfileInfoListWidget(saveButton: SizedBox()),
+                    child: ProfileInfoListWidget(
+                      userModel: widget.userModel,
+                      saveButton: SizedBox(),
+                    ),
                   ),
                 ],
               ),

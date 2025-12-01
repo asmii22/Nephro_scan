@@ -4,7 +4,9 @@ import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/routes/auto_router.gr.dart';
 
 class UserAvatarWidget extends StatelessWidget {
-  const UserAvatarWidget({super.key});
+  const UserAvatarWidget({super.key, this.username, this.email});
+  final String? username;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,9 @@ class UserAvatarWidget extends StatelessWidget {
         child: InkWell(
           splashColor: AppColors.transparent,
           highlightColor: AppColors.transparent,
-          onTap: () => context.router.push(SettingRoute()),
+          onTap: () => context.router.push(
+            SettingRoute(userName: username, userEmail: email),
+          ),
           child: Image.asset(PNGImages.dummy),
         ),
       ),
