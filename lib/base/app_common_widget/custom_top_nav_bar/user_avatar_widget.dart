@@ -10,17 +10,20 @@ class UserAvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ClipRRect(
-        borderRadius: BorderRadiusGeometry.circular(50),
-        child: InkWell(
-          splashColor: AppColors.transparent,
-          highlightColor: AppColors.transparent,
-          onTap: () => context.router.push(
-            SettingRoute(userName: username, userEmail: email),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: 50,
+        child: ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(50),
+          child: InkWell(
+            splashColor: AppColors.transparent,
+            highlightColor: AppColors.transparent,
+            onTap: () => context.router.push(
+              SettingRoute(userName: username, userEmail: email),
+            ),
+            child: Image.asset(PNGImages.dummy),
           ),
-          child: Image.asset(PNGImages.dummy),
         ),
       ),
     );
