@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MessageModel {
 
- String? get senderId; String? get receiverId; String? get text;@TimestampConverter() DateTime? get timestamp;
+ String? get id; String? get conversationId; String? get senderId; String? get receiverId; String? get text;@TimestampConverter() DateTime? get timestamp;
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $MessageModelCopyWith<MessageModel> get copyWith => _$MessageModelCopyWithImpl<M
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageModel&&(identical(other.senderId, senderId) || other.senderId == senderId)&&(identical(other.receiverId, receiverId) || other.receiverId == receiverId)&&(identical(other.text, text) || other.text == text)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&(identical(other.senderId, senderId) || other.senderId == senderId)&&(identical(other.receiverId, receiverId) || other.receiverId == receiverId)&&(identical(other.text, text) || other.text == text)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,senderId,receiverId,text,timestamp);
+int get hashCode => Object.hash(runtimeType,id,conversationId,senderId,receiverId,text,timestamp);
 
 @override
 String toString() {
-  return 'MessageModel(senderId: $senderId, receiverId: $receiverId, text: $text, timestamp: $timestamp)';
+  return 'MessageModel(id: $id, conversationId: $conversationId, senderId: $senderId, receiverId: $receiverId, text: $text, timestamp: $timestamp)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $MessageModelCopyWith<$Res>  {
   factory $MessageModelCopyWith(MessageModel value, $Res Function(MessageModel) _then) = _$MessageModelCopyWithImpl;
 @useResult
 $Res call({
- String? senderId, String? receiverId, String? text,@TimestampConverter() DateTime? timestamp
+ String? id, String? conversationId, String? senderId, String? receiverId, String? text,@TimestampConverter() DateTime? timestamp
 });
 
 
@@ -65,9 +65,11 @@ class _$MessageModelCopyWithImpl<$Res>
 
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? senderId = freezed,Object? receiverId = freezed,Object? text = freezed,Object? timestamp = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? conversationId = freezed,Object? senderId = freezed,Object? receiverId = freezed,Object? text = freezed,Object? timestamp = freezed,}) {
   return _then(_self.copyWith(
-senderId: freezed == senderId ? _self.senderId : senderId // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,conversationId: freezed == conversationId ? _self.conversationId : conversationId // ignore: cast_nullable_to_non_nullable
+as String?,senderId: freezed == senderId ? _self.senderId : senderId // ignore: cast_nullable_to_non_nullable
 as String?,receiverId: freezed == receiverId ? _self.receiverId : receiverId // ignore: cast_nullable_to_non_nullable
 as String?,text: freezed == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String?,timestamp: freezed == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? senderId,  String? receiverId,  String? text, @TimestampConverter()  DateTime? timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? conversationId,  String? senderId,  String? receiverId,  String? text, @TimestampConverter()  DateTime? timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MessageModel() when $default != null:
-return $default(_that.senderId,_that.receiverId,_that.text,_that.timestamp);case _:
+return $default(_that.id,_that.conversationId,_that.senderId,_that.receiverId,_that.text,_that.timestamp);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.senderId,_that.receiverId,_that.text,_that.timestamp);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? senderId,  String? receiverId,  String? text, @TimestampConverter()  DateTime? timestamp)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? conversationId,  String? senderId,  String? receiverId,  String? text, @TimestampConverter()  DateTime? timestamp)  $default,) {final _that = this;
 switch (_that) {
 case _MessageModel():
-return $default(_that.senderId,_that.receiverId,_that.text,_that.timestamp);case _:
+return $default(_that.id,_that.conversationId,_that.senderId,_that.receiverId,_that.text,_that.timestamp);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.senderId,_that.receiverId,_that.text,_that.timestamp);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? senderId,  String? receiverId,  String? text, @TimestampConverter()  DateTime? timestamp)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? conversationId,  String? senderId,  String? receiverId,  String? text, @TimestampConverter()  DateTime? timestamp)?  $default,) {final _that = this;
 switch (_that) {
 case _MessageModel() when $default != null:
-return $default(_that.senderId,_that.receiverId,_that.text,_that.timestamp);case _:
+return $default(_that.id,_that.conversationId,_that.senderId,_that.receiverId,_that.text,_that.timestamp);case _:
   return null;
 
 }
@@ -212,9 +214,11 @@ return $default(_that.senderId,_that.receiverId,_that.text,_that.timestamp);case
 @JsonSerializable()
 
 class _MessageModel extends MessageModel {
-  const _MessageModel({this.senderId, this.receiverId, this.text, @TimestampConverter() this.timestamp}): super._();
+  const _MessageModel({this.id, this.conversationId, this.senderId, this.receiverId, this.text, @TimestampConverter() this.timestamp}): super._();
   factory _MessageModel.fromJson(Map<String, dynamic> json) => _$MessageModelFromJson(json);
 
+@override final  String? id;
+@override final  String? conversationId;
 @override final  String? senderId;
 @override final  String? receiverId;
 @override final  String? text;
@@ -233,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MessageModel&&(identical(other.senderId, senderId) || other.senderId == senderId)&&(identical(other.receiverId, receiverId) || other.receiverId == receiverId)&&(identical(other.text, text) || other.text == text)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MessageModel&&(identical(other.id, id) || other.id == id)&&(identical(other.conversationId, conversationId) || other.conversationId == conversationId)&&(identical(other.senderId, senderId) || other.senderId == senderId)&&(identical(other.receiverId, receiverId) || other.receiverId == receiverId)&&(identical(other.text, text) || other.text == text)&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,senderId,receiverId,text,timestamp);
+int get hashCode => Object.hash(runtimeType,id,conversationId,senderId,receiverId,text,timestamp);
 
 @override
 String toString() {
-  return 'MessageModel(senderId: $senderId, receiverId: $receiverId, text: $text, timestamp: $timestamp)';
+  return 'MessageModel(id: $id, conversationId: $conversationId, senderId: $senderId, receiverId: $receiverId, text: $text, timestamp: $timestamp)';
 }
 
 
@@ -253,7 +257,7 @@ abstract mixin class _$MessageModelCopyWith<$Res> implements $MessageModelCopyWi
   factory _$MessageModelCopyWith(_MessageModel value, $Res Function(_MessageModel) _then) = __$MessageModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? senderId, String? receiverId, String? text,@TimestampConverter() DateTime? timestamp
+ String? id, String? conversationId, String? senderId, String? receiverId, String? text,@TimestampConverter() DateTime? timestamp
 });
 
 
@@ -270,9 +274,11 @@ class __$MessageModelCopyWithImpl<$Res>
 
 /// Create a copy of MessageModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? senderId = freezed,Object? receiverId = freezed,Object? text = freezed,Object? timestamp = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? conversationId = freezed,Object? senderId = freezed,Object? receiverId = freezed,Object? text = freezed,Object? timestamp = freezed,}) {
   return _then(_MessageModel(
-senderId: freezed == senderId ? _self.senderId : senderId // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,conversationId: freezed == conversationId ? _self.conversationId : conversationId // ignore: cast_nullable_to_non_nullable
+as String?,senderId: freezed == senderId ? _self.senderId : senderId // ignore: cast_nullable_to_non_nullable
 as String?,receiverId: freezed == receiverId ? _self.receiverId : receiverId // ignore: cast_nullable_to_non_nullable
 as String?,text: freezed == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String?,timestamp: freezed == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable

@@ -37,6 +37,12 @@ import 'package:nephroscan/features/dashboard_screen/presentation/cubit/nav_bar_
     as _i701;
 import 'package:nephroscan/features/dashboard_screen/presentation/cubit/user_info_cubit/user_info_cubit.dart'
     as _i783;
+import 'package:nephroscan/features/message_screen/data/datasources/message_remote_datasource.dart'
+    as _i805;
+import 'package:nephroscan/features/message_screen/data/repositories/message_repository_impl.dart'
+    as _i270;
+import 'package:nephroscan/features/message_screen/domain/repositories/message_repository.dart'
+    as _i335;
 import 'package:nephroscan/features/reports_screen/data/datasources/report_remote_datasource.dart'
     as _i968;
 import 'package:nephroscan/features/reports_screen/data/repositories/report_repository_impl.dart'
@@ -81,6 +87,11 @@ extension GetItInjectableX on _i174.GetIt {
         firebaseStorage: gh<_i457.FirebaseStorage>(),
       ),
     );
+    gh.lazySingleton<_i805.MessageRemoteDataSource>(
+      () => _i805.MessageRemoteDataSourceImpl(
+        gh<_i700.AuthorizedFirebaseClient>(),
+      ),
+    );
     gh.lazySingleton<_i1059.AuthFirebaseClient>(
       () => _i1059.AuthFirebaseClient(
         auth: gh<_i59.FirebaseAuth>(),
@@ -97,6 +108,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i899.SignUpRemoteDataSource>(
       () => _i899.SignUpRemoteDataSourceImpl(gh<_i1059.AuthFirebaseClient>()),
+    );
+    gh.lazySingleton<_i335.MessageRepository>(
+      () => _i270.MessageRepositoryImpl(
+        remoteDataSource: gh<_i805.MessageRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i968.ReportRemoteDatasource>(
       () => _i968.ReportRemoteDatasourceImpl(

@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/features/dashboard_screen/presentation/cubit/user_info_cubit/user_info_cubit.dart';
 import 'package:nephroscan/features/home_screen/presentation/screens/home_screen.dart';
-import 'package:nephroscan/features/message_screen/presentation/screens/message_screen.dart';
 import 'package:nephroscan/features/profile_screen/presentation/screens/profile_screen.dart';
 
 import '../../../calendar_screen/presentation/screens/calendar_screen.dart';
 import '../../../ct_scan_screen/presentation/screens/ct_scan_screen.dart';
+import '../../../message_screen/presentation/screens/message_screen.dart';
 
 @RoutePage()
 class DashboardScreen extends StatefulWidget {
