@@ -11,6 +11,8 @@ abstract class MessageModel with _$MessageModel {
   const MessageModel._();
 
   const factory MessageModel({
+    String? id,
+    String? conversationId,
     String? senderId,
     String? receiverId,
     String? text,
@@ -21,6 +23,8 @@ abstract class MessageModel with _$MessageModel {
       _$MessageModelFromJson(json);
 
   MessageEntity toEntity() => MessageEntity(
+    id: id,
+    conversationId: conversationId,
     senderId: senderId,
     receiverId: receiverId,
     text: text,
@@ -28,6 +32,8 @@ abstract class MessageModel with _$MessageModel {
   );
 
   factory MessageModel.fromEntity(MessageEntity entity) => MessageModel(
+    id: entity.id,
+    conversationId: entity.conversationId,
     senderId: entity.senderId,
     receiverId: entity.receiverId,
     text: entity.text,

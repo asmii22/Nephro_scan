@@ -21,6 +21,7 @@ class AppButton extends StatelessWidget {
     AppButtonDecorator? button,
     BorderSide? border,
     EdgeInsets? padding,
+    EdgeInsets margin = EdgeInsets.zero,
     Widget? icon,
     bool hasUnderline = false,
     bool hasGradientBorder = false,
@@ -41,6 +42,7 @@ class AppButton extends StatelessWidget {
        _icon = icon,
        _border = border,
        _padding = padding,
+       _margin = margin,
        _hasUnderline = hasUnderline,
        _width = width,
        _hasGradientBorder = hasGradientBorder,
@@ -60,6 +62,7 @@ class AppButton extends StatelessWidget {
   final BorderSide? _border;
   final Widget? _icon;
   final EdgeInsets? _padding;
+  final EdgeInsets _margin;
   final bool _hasUnderline;
   final bool _hasGradientBorder;
   final bool _hasGradientBackground;
@@ -69,120 +72,138 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: _appButtonState.opacity,
-      child: MaterialButton(
-        padding: _padding ?? EdgeInsets.zero,
-        onPressed: _appButtonState == AppButtonState.disabled
-            ? null
-            : _onButtonClick,
-        shape: RoundedRectangleBorder(
-          side: _border ?? BorderSide.none,
-          borderRadius: BorderRadius.circular(_radius),
-        ),
-        focusColor:
-            (_button?.getBackgroundColor(context, _appButtonState) ??
-                _backgroundColor) ??
-            Theme.of(context).colorScheme.onPrimary,
-        hoverColor:
-            (_button?.getBackgroundColor(context, _appButtonState) ??
-                _backgroundColor) ??
-            Theme.of(context).colorScheme.onPrimary,
-        height: _height,
-        elevation: _elevation == 0
-            ? 0
-            : (_appButtonState != AppButtonState.disabled ? 2.0 : _elevation),
-        color:
-            (_button?.getBackgroundColor(context, _appButtonState) ??
-                _backgroundColor) ??
-            Theme.of(context).colorScheme.onPrimary,
-        textColor:
-            _button?.getTitleColor(context, _appButtonState) ??
-            context.colorScheme.primary,
-        disabledColor:
-            (_button?.getBackgroundColor(context, AppButtonState.disabled) ??
-                _backgroundColor) ??
-            Theme.of(context).colorScheme.onPrimary,
-        disabledTextColor:
-            _button?.getTitleColor(context, AppButtonState.disabled) ??
-            Theme.of(context).colorScheme.primary,
-        minWidth: _width ?? double.infinity,
-        focusElevation: 0,
-        hoverElevation: 0,
-        highlightElevation: 0,
-        splashColor: Colors.transparent,
-        highlightColor:
-            (_button?.getBackgroundColor(context, AppButtonState.tapped) ??
-                _backgroundColor) ??
-            Theme.of(context).colorScheme.onPrimary,
-        enableFeedback: false,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(_radius),
-          child: SizedBox(
-            width: _width ?? double.infinity,
-            height: _height,
-            child: Stack(
-              children: [
-                Visibility(
-                  visible: _hasGradientBorder || _hasGradientBackground,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        stops: [0.2, 0.4, 0.8],
-                        colors: [
-                          Color.fromRGBO(3, 162, 177, 0.95),
-                          Color.fromRGBO(99, 162, 178, 1),
-                          Color.fromRGBO(195, 162, 179, 0.93),
+    return Container(
+      margin: _margin,
+      child: Opacity(
+        opacity: _appButtonState.opacity,
+        child: MaterialButton(
+          padding: _padding ?? EdgeInsets.zero,
+          onPressed: _appButtonState == AppButtonState.disabled
+              ? null
+              : _onButtonClick,
+          shape: RoundedRectangleBorder(
+            side: _border ?? BorderSide.none,
+            borderRadius: BorderRadius.circular(_radius),
+          ),
+          focusColor:
+              (_button?.getBackgroundColor(context, _appButtonState) ??
+                  _backgroundColor) ??
+              Theme.of(context).colorScheme.onPrimary,
+          hoverColor:
+              (_button?.getBackgroundColor(context, _appButtonState) ??
+                  _backgroundColor) ??
+              Theme.of(context).colorScheme.onPrimary,
+          height: _height,
+          elevation: _elevation == 0
+              ? 0
+              : (_appButtonState != AppButtonState.disabled ? 2.0 : _elevation),
+          color:
+              (_button?.getBackgroundColor(context, _appButtonState) ??
+                  _backgroundColor) ??
+              Theme.of(context).colorScheme.onPrimary,
+          textColor:
+              _button?.getTitleColor(context, _appButtonState) ??
+              context.colorScheme.primary,
+          disabledColor:
+              (_button?.getBackgroundColor(context, AppButtonState.disabled) ??
+                  _backgroundColor) ??
+              Theme.of(context).colorScheme.onPrimary,
+          disabledTextColor:
+              _button?.getTitleColor(context, AppButtonState.disabled) ??
+              Theme.of(context).colorScheme.primary,
+          minWidth: _width ?? double.infinity,
+          focusElevation: 0,
+          hoverElevation: 0,
+          highlightElevation: 0,
+          splashColor: Colors.transparent,
+          highlightColor:
+              (_button?.getBackgroundColor(context, AppButtonState.tapped) ??
+                  _backgroundColor) ??
+              Theme.of(context).colorScheme.onPrimary,
+          enableFeedback: false,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(_radius),
+            child: SizedBox(
+              width: _width ?? double.infinity,
+              height: _height,
+              child: Stack(
+                children: [
+                  Visibility(
+                    visible: _hasGradientBorder || _hasGradientBackground,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          stops: [0.2, 0.4, 0.8],
+                          colors: [
+                            Color.fromRGBO(3, 162, 177, 0.95),
+                            Color.fromRGBO(99, 162, 178, 1),
+                            Color.fromRGBO(195, 162, 179, 0.93),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !_hasGradientBackground,
+                    child: Container(
+                      margin: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(_radius),
+                        color:
+                            _backgroundColor ??
+                            Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: _width ?? double.infinity,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (_icon != null && !_addIconAfterText) ...[
+                            _icon,
+                            const SizedBox(width: 4),
+                          ],
+                          Flexible(
+                            child: Text(
+                              _title.localized,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              style:
+                                  titleStyle ??
+                                  AppTextStyles.labelLargePoppins.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: _fontSize,
+                                    color: (_textColor == null)
+                                        ? _button?.getTitleColor(
+                                                context,
+                                                _appButtonState,
+                                              ) ??
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.primary
+                                        : _textColor,
+                                    decoration: _hasUnderline
+                                        ? TextDecoration.underline
+                                        : null,
+                                  ),
+                            ),
+                          ),
+                          if (_icon != null && _addIconAfterText) ...[
+                            const SizedBox(width: 4),
+                            _icon,
+                          ],
                         ],
                       ),
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: !_hasGradientBackground,
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(_radius),
-                      color:
-                          _backgroundColor ??
-                          Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_icon != null && !_addIconAfterText) _icon,
-                      if (_icon != null && !_addIconAfterText)
-                        const SizedBox(width: 4),
-                      Text(
-                        _title.localized,
-                        style:
-                            titleStyle ??
-                            AppTextStyles.labelLargePoppins.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: _fontSize,
-                              color: (_textColor == null)
-                                  ? _button?.getTitleColor(
-                                          context,
-                                          _appButtonState,
-                                        ) ??
-                                        Theme.of(context).colorScheme.primary
-                                  : _textColor,
-                              decoration: _hasUnderline
-                                  ? TextDecoration.underline
-                                  : null,
-                            ),
-                      ),
-                      if (_icon != null && _addIconAfterText)
-                        const SizedBox(width: 4),
-                      if (_icon != null && _addIconAfterText) _icon,
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
