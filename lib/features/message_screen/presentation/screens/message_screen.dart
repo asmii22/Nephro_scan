@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/base.dart';
-import 'package:nephroscan/features/message_screen/presentation/widgets/conversation_tile_widget.dart';
 import 'package:nephroscan/features/message_screen/presentation/widgets/empty_conversation_widget.dart';
+import 'package:nephroscan/features/sign_in_sign_up_screen/data/models/user_model/user_model.dart';
 import 'package:nephroscan/routes/auto_router.gr.dart';
+
+import 'chat_list.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -122,6 +125,7 @@ class _MessageScreenState extends State<MessageScreen> {
       'avatarUrl': '',
     },
   ];
+  final firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -174,15 +178,67 @@ class _MessageScreenState extends State<MessageScreen> {
                     ).colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(child: Icon(Icons.person)),
-                      title: Text('Search Result ${index + 1}'),
-                      subtitle: Text('Tap to view conversation'),
-                      onTap: () {
-                        // Handle search result tap
+                child: StreamBuilder(
+                  stream: firestore
+                      .collection(AppStrings.usersCollection)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    // Parse documents into UserModel and filter by name/email (case-insensitive)
+                    List<UserModel> users = [];
+                    if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                      final lowerQuery = _searchText.toLowerCase();
+                      users = snapshot.data!.docs
+                          .map((doc) {
+                            final raw = doc.data() as Map<String, dynamic>;
+                            // Ensure id is present for the model
+                            final mapped = <String, dynamic>{
+                              ...raw,
+                              'id': doc.id,
+                            };
+                            try {
+                              return UserModel.fromJson(mapped);
+                            } catch (e) {
+                              // Fallback in case of parsing issues
+                              return UserModel(
+                                id: doc.id,
+                                name: raw['name']?.toString(),
+                                email: raw['email']?.toString(),
+                                profilePicture: raw['profilePicture']
+                                    ?.toString(),
+                              );
+                            }
+                          })
+                          .where((u) {
+                            final name = u.name?.toLowerCase() ?? '';
+                            final email = u.email?.toLowerCase() ?? '';
+                            return name.contains(lowerQuery) ||
+                                email.contains(lowerQuery);
+                          })
+                          .toList();
+                    }
+
+                    if (users.isEmpty) {
+                      return const Center(child: Text('No users found'));
+                    }
+
+                    return ListView.builder(
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        final user = users[index];
+                        return ListTile(
+                          splashColor: AppColors.transparent,
+                          title: Text(user.name ?? user.email ?? 'Unknown'),
+                          subtitle: Text(user.email ?? ''),
+                          onTap: () {
+                            _formKey.currentState?.reset();
+                            setState(() {
+                              _searchText = '';
+                            });
+                            context.router.push(
+                              ChatRoute(id: user.id, name: user.name ?? ''),
+                            );
+                          },
+                        );
                       },
                     );
                   },
@@ -192,34 +248,7 @@ class _MessageScreenState extends State<MessageScreen> {
             Expanded(
               child: _conversations.isEmpty
                   ? const EmptyConversationWidget()
-                  : ListView.separated(
-                      itemCount: _conversations.length,
-                      separatorBuilder: (context, index) => Divider(
-                        height: 1,
-                        indent: 72,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.outline.withValues(alpha: 0.1),
-                      ),
-                      itemBuilder: (context, index) {
-                        final conversation = _conversations[index];
-                        return ConversationTileWidget(
-                          name: conversation['name'],
-                          lastMessage: conversation['lastMessage'],
-                          time: conversation['time'],
-                          unreadCount: conversation['unreadCount'],
-                          avatarUrl: conversation['avatarUrl'],
-                          onTap: () {
-                            context.router.push(
-                              ConversationRoute(
-                                name: conversation['name'],
-                                avatarUrl: conversation['avatarUrl'],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                  : ChatListWidget(firestore: firestore),
             ),
           ],
         ),
