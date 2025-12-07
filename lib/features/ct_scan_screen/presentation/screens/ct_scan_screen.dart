@@ -15,6 +15,7 @@ import '../../../../core/media_picker/media_picker_config.dart';
 import '../../../../core/media_picker/media_picker_service.dart';
 import '../../../../core/media_picker/media_source.dart';
 import '../../../../core/media_picker/media_type.dart';
+import '../../../dashboard_screen/presentation/cubit/user_info_cubit/user_info_cubit.dart';
 import '../../data/models/report_model.dart';
 import '../cubit/ct_scan_upload_cubit/ct_scan_upload_cubit.dart';
 import '../widgets/media_single_widget.dart';
@@ -143,6 +144,7 @@ class _CtScanScreenState extends State<CtScanScreen> {
                     content: Text('CT Scan uploaded successfully'),
                   ),
                 );
+                context.read<UserInfoCubit>().getUserInfo();
               },
               error: (message) {
                 _isProcessing.value = false;
@@ -308,16 +310,6 @@ Your task is to generate a comprehensive explanation for the detected condition 
 - **3: Kidney Tumor**:  
   The AI should generate a more detailed report, explaining the potential implications of a kidney tumor, including the need for additional tests, biopsy, or possible treatments.
 
-### Example of Expected Output:
-{
-  "message": "success",
-  "response": {
-    "findings": "The model detected a smooth, round mass within the kidney. It appears well-defined, with no signs of invasion into surrounding tissues. The mass is of moderate size and does not exhibit irregular edges.",
-    "impression": "The mass is consistent with a benign cyst, likely stable. It requires periodic monitoring to ensure no changes in size or behavior.",
-    "title": "Benign Kidney Cyst",
-    "description": "A kidney cyst is typically a fluid-filled sac that forms inside the kidney. Most cysts are harmless and do not require treatment. However, if a cyst grows or causes pain, it may need to be monitored or treated. Regular check-ups and imaging are recommended to track its size."
-  }
-}
 
 dont use any other language other than English.
 
