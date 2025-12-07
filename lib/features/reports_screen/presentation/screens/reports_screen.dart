@@ -50,7 +50,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   itemCount: data.length,
                   itemBuilder: (context, index) => SingleReportWidget(
                     date: data[index].date,
-                    reportDescription: data[index].description,
+                    reportDescription: data[index].findings,
                     reportTitle: data[index].title,
                     onTap: () {
                       context.router.push(
