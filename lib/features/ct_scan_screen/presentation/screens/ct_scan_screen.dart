@@ -10,6 +10,7 @@ import 'package:nephroscan/base/base.dart';
 import 'package:nephroscan/base/utils/ct_scan_model.dart';
 import 'package:nephroscan/core_ui/custom_loading.dart';
 import 'package:nephroscan/features/ct_scan_screen/data/models/gemini_response_model.dart';
+import 'package:nephroscan/features/dashboard_screen/presentation/cubit/user_info_cubit/user_info_cubit.dart';
 
 import '../../../../core/media_picker/media_picker_config.dart';
 import '../../../../core/media_picker/media_picker_service.dart';
@@ -136,6 +137,7 @@ class _CtScanScreenState extends State<CtScanScreen> {
               success: () {
                 _isProcessing.value = false;
                 CustomLoading().hide();
+                context.read<UserInfoCubit>().getUserInfo();
 
                 // context.router.push(ReportsRoute());
                 ScaffoldMessenger.of(context).showSnackBar(
