@@ -24,6 +24,7 @@ class AppStrings {
   //firebase collection names
   static const String usersCollection = 'users';
   static const String reportCollection = 'reports';
+  static const String messageCollection = 'Messages';
 
   //ct scan result labels
   static const String normal = 'Normal';
@@ -49,6 +50,24 @@ class AppStrings {
   static const String tumorDescription =
       "A tumor is an abnormal growth of tissue in the kidney that can be either benign or malignant (cancerous). "
       "Further tests and medical consultation are required for diagnosis and treatment.";
+}
+
+String timeAgo(DateTime dateTime) {
+  final now = DateTime.now();
+  final difference = now.difference(dateTime);
+
+  if (difference.inDays > 30) {
+    final months = (difference.inDays / 30).floor();
+    return '$months ${months == 1 ? 'month' : 'months'} ago';
+  } else if (difference.inDays > 0) {
+    return '${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago';
+  } else if (difference.inHours > 0) {
+    return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
+  } else if (difference.inMinutes > 0) {
+    return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'min' : 'min'} ago';
+  } else {
+    return 'just now';
+  }
 }
 
 class GoogleCredentials {
