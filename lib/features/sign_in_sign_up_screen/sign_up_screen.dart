@@ -29,6 +29,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  UserRole? _userRole = UserRole.patient;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +125,92 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ]),
                   ),
+                  10.verticalBox,
+                  RadioGroup<UserRole>(
+                    groupValue: _userRole,
+                    onChanged: (value) {
+                      setState(() {
+                        _userRole = value!;
+                      });
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Radio<UserRole>(
+                              value: UserRole.patient,
+                              fillColor: WidgetStateProperty.resolveWith<Color>(
+                                (states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary; // selected circle color
+                                  } else if (states.contains(
+                                    WidgetState.disabled,
+                                  )) {
+                                    return Colors.grey; // disabled circle color
+                                  } else if (states.contains(
+                                    WidgetState.hovered,
+                                  )) {
+                                    return Colors.blue; // hovered circle color
+                                  } else if (states.contains(
+                                    WidgetState.selected,
+                                  )) {
+                                    return Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary;
+                                  }
 
+                                  return Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary;
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Patient',
+                              style: AppTextStyles.bodyMediumPoppins,
+                            ),
+                            Radio<UserRole>(
+                              value: UserRole.doctor,
+                              fillColor: WidgetStateProperty.resolveWith<Color>(
+                                (states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary; // selected circle color
+                                  } else if (states.contains(
+                                    WidgetState.disabled,
+                                  )) {
+                                    return Colors.grey; // disabled circle color
+                                  } else if (states.contains(
+                                    WidgetState.hovered,
+                                  )) {
+                                    return Colors.blue; // hovered circle color
+                                  } else if (states.contains(
+                                    WidgetState.selected,
+                                  )) {
+                                    return Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary;
+                                  }
+
+                                  return Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary;
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Doctor',
+                              style: AppTextStyles.bodyMediumPoppins,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   10.verticalBox,
                   Row(
                     children: [
@@ -239,7 +325,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? '+977$phoneNumber'
                               : null,
                           address: address,
-                          role: UserRole.patient, // Default role
+                          role: _userRole, // Default role
                           profilePicture: null,
                         );
 

@@ -20,7 +20,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ReportsCubit>().getReportsByIds(widget.reportIds);
+    if (widget.reportIds != null && widget.reportIds!.isNotEmpty) {
+      context.read<ReportsCubit>().getReportsByIds(widget.reportIds);
+    }
   }
 
   @override
@@ -29,6 +31,14 @@ class _ReportsScreenState extends State<ReportsScreen> {
       appBar: CustomTopNavBar(title: 'Reports'),
       body: BlocBuilder<ReportsCubit, ReportsState>(
         builder: (context, state) {
+          if (widget.reportIds == null || widget.reportIds!.isEmpty) {
+            return Center(
+              child: Text(
+                'No Reports Available',
+                style: AppTextStyles.titleMediumPoppins,
+              ),
+            );
+          }
           return state.when(
             initial: () => SizedBox.shrink(),
             loading: () => Center(
