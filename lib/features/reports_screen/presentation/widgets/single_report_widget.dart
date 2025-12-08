@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nephroscan/base/base.dart';
+import 'package:nephroscan/base/utils/date_extentions.dart';
 
 class SingleReportWidget extends StatelessWidget {
   const SingleReportWidget({
@@ -37,7 +38,7 @@ class SingleReportWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  date ?? 'January 15 2025',
+                  date?.formatDate('MMM dd, yyyy') ?? 'January 15 2025',
                   style: AppTextStyles.bodyMediumPoppins.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                   ),

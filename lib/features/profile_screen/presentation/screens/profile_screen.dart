@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nephroscan/base/base.dart';
+import 'package:nephroscan/core/injection/injection.dart';
+import 'package:nephroscan/features/profile_screen/presentation/cubits/get_all_reports_cubit/get_all_reports_cubit.dart';
 import 'package:nephroscan/features/profile_screen/presentation/widgets/profile_container_widget.dart';
 import 'package:nephroscan/features/profile_screen/presentation/widgets/profile_info_list_widget.dart';
 import 'package:nephroscan/features/sign_in_sign_up_screen/data/models/user_model/user_model.dart';
@@ -15,6 +18,22 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late GetAllReportsCubit _getAllReportsCubit;
+  @override
+  void initState() {
+    super.initState();
+    _getAllReportsCubit = getIt<GetAllReportsCubit>();
+    if (widget.userModel?.role == UserRole.doctor) {
+      _getAllReportsCubit.getAllReports();
+    }
+  }
+
+  @override
+  void dispose() {
+    _getAllReportsCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
@@ -81,14 +100,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                   20.verticalBox,
-                  ProfileContainerWidget(
-                    reportsCount: widget.userModel?.reports?.length,
-                    onTap: () {
-                      context.router.push(
-                        ReportsRoute(reportIds: widget.userModel?.reports),
-                      );
-                    },
-                  ),
+                  if (widget.userModel?.role == UserRole.doctor)
+                    BlocBuilder<GetAllReportsCubit, GetAllReportsState>(
+                      bloc: _getAllReportsCubit,
+                      builder: (context, state) {
+                        final reports = state.maybeWhen(
+                          allReports: (reports) => reports,
+                          orElse: () => null,
+                        );
+
+                        return ProfileContainerWidget(
+                          reportsCount: reports?.length,
+                          onTap: () {
+                            context.router.push(
+                              ReportsRoute(reportIds: reports),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  if (widget.userModel?.role == UserRole.patient)
+                    ProfileContainerWidget(
+                      reportsCount: widget.userModel?.reports?.length,
+                      onTap: () {
+                        context.router.push(
+                          ReportsRoute(reportIds: widget.userModel?.reports),
+                        );
+                      },
+                    ),
                   20.verticalBox,
                   Expanded(
                     child: ProfileInfoListWidget(

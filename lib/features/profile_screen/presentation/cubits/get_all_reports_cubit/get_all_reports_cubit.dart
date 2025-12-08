@@ -17,7 +17,6 @@ class GetAllReportsCubit extends Cubit<GetAllReportsState> {
     emit(const GetAllReportsState.loading());
     try {
       final reportDocIds = await _dashboardRepository.getReportDocIds();
-
       emit(GetAllReportsState.allReports(reportDocIds));
     } catch (e) {
       emit(GetAllReportsState.error(e.toString()));
