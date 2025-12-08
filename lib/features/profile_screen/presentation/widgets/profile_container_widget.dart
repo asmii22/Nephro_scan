@@ -62,7 +62,7 @@ class ProfileContainerWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    reportsCount?.toString() ?? '120+',
+                    reportsCount?.toString() ?? '0',
                     style: AppTextStyles.bodyLargeInter.copyWith(
                       fontWeight: FontWeight.w800,
                     ),

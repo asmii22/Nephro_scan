@@ -23,6 +23,7 @@ class AppStrings {
 
   //firebase collection names
   static const String usersCollection = 'users';
+  static const String doctorsCollection = 'doctors';
   static const String reportCollection = 'reports';
   static const String messageCollection = 'Messages';
 
