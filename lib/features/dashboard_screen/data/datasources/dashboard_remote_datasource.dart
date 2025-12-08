@@ -5,6 +5,7 @@ import '../../../../core/firebase_client/authorized_firebase_client.dart';
 
 abstract class DashboardRemoteDataSource {
   Future<UserModel?> getUserInfo();
+  Future<List<String>?> getReportDocIds();
 }
 
 @LazySingleton(as: DashboardRemoteDataSource)
@@ -18,6 +19,15 @@ class DashboardRemoteDataSourceImpl implements DashboardRemoteDataSource {
       return _authorizedFirebaseClient.getUserInfo();
     } catch (e) {
       throw Exception('Get user info failed: $e');
+    }
+  }
+
+  @override
+  Future<List<String>?> getReportDocIds() {
+    try {
+      return _authorizedFirebaseClient.getReportDocIds();
+    } catch (e) {
+      throw Exception('Get report document IDs failed: $e');
     }
   }
 }
