@@ -6,6 +6,7 @@ import 'package:nephroscan/features/sign_in_sign_up_screen/cubit/user_sign_in_cu
 
 import '../../features/ct_scan_screen/presentation/cubit/ct_scan_upload_cubit/ct_scan_upload_cubit.dart';
 import '../../features/dashboard_screen/presentation/cubit/nav_bar_cubit/nav_bar_cubit.dart';
+import '../../features/profile_screen/presentation/cubits/get_all_reports_cubit/get_all_reports_cubit.dart';
 import '../../features/reports_screen/presentation/cubit/reports_cubit/reports_cubit.dart';
 
 class AppBlocWrapper extends StatelessWidget {
@@ -23,6 +24,9 @@ class AppBlocWrapper extends StatelessWidget {
         ),
         BlocProvider<UserInfoCubit>(create: (_) => getIt<UserInfoCubit>()),
         BlocProvider<ReportsCubit>(create: (_) => getIt<ReportsCubit>()),
+        BlocProvider<GetAllReportsCubit>(
+          create: (_) => getIt<GetAllReportsCubit>(),
+        ),
       ],
       child: child,
     );
