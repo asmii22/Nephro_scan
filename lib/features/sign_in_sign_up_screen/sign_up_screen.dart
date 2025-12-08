@@ -17,6 +17,7 @@ import 'package:nephroscan/features/sign_in_sign_up_screen/data/models/user_mode
 import 'package:nephroscan/routes/auto_router.gr.dart';
 
 import '../../base/utils/snackbar/snackbar_style.dart';
+import '../../base/utils/strings.dart';
 
 final _formKey = GlobalKey<FormBuilderState>();
 

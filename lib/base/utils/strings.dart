@@ -76,6 +76,9 @@ class GoogleCredentials {
 }
 
 extension ExtString on String {
+  String capitalize() =>
+      isEmpty ? this : '${this[0].toUpperCase()}${substring(1)}';
+
   bool get isInvalidEmail {
     final emailRegExp = RegExp(r'^[a-zA-Z0-9.+_]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
     return !emailRegExp.hasMatch(this);
@@ -185,4 +188,19 @@ extension ExtString on String {
       return [items[0], items[length - 1]].join();
     }
   }
+}
+
+enum UserRole { doctor, patient }
+
+enum DoctorSpecialty {
+  generalPractitioner,
+  cardiologist,
+  dermatologist,
+  neurologist,
+  pediatrician,
+  psychiatrist,
+  radiologist,
+  surgeon,
+  urologist,
+  oncologist,
 }

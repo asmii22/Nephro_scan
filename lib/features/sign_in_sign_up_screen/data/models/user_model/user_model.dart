@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../base/utils/strings.dart';
+
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
-
-enum UserRole { doctor, patient }
 
 @freezed
 abstract class UserModel with _$UserModel {
