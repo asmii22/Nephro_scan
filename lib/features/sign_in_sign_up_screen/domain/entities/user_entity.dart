@@ -1,4 +1,4 @@
-import '../../data/models/user_model/user_model.dart';
+import '../../../../base/utils/strings.dart';
 
 class UserEntity {
   final String id;
