@@ -110,4 +110,10 @@ class AuthorizedFirebaseClient {
       throw Exception('Failed to get reports: $e');
     }
   }
+
+  Future<List<String>> getReportDocIds() async {
+    final query = await FirebaseFirestore.instance.collection('reports').get();
+
+    return query.docs.map((doc) => doc.id).toList();
+  }
 }

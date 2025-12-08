@@ -43,6 +43,8 @@ import 'package:nephroscan/features/message_screen/data/repositories/message_rep
     as _i270;
 import 'package:nephroscan/features/message_screen/domain/repositories/message_repository.dart'
     as _i335;
+import 'package:nephroscan/features/profile_screen/presentation/cubits/get_all_reports_cubit/get_all_reports_cubit.dart'
+    as _i392;
 import 'package:nephroscan/features/reports_screen/data/datasources/report_remote_datasource.dart'
     as _i968;
 import 'package:nephroscan/features/reports_screen/data/repositories/report_repository_impl.dart'
@@ -134,6 +136,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i783.UserInfoCubit>(
       () => _i783.UserInfoCubit(
+        dashboardRepository: gh<_i88.DashboardRepository>(),
+      ),
+    );
+    gh.factory<_i392.GetAllReportsCubit>(
+      () => _i392.GetAllReportsCubit(
         dashboardRepository: gh<_i88.DashboardRepository>(),
       ),
     );

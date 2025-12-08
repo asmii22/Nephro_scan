@@ -19,4 +19,14 @@ class DashboardRepositoryImpl implements DashboardRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<String>?> getReportDocIds() async {
+    try {
+      final reportDocIds = await remoteDataSource.getReportDocIds();
+      return reportDocIds;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

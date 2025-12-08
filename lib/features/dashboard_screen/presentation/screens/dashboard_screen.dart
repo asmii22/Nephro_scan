@@ -6,6 +6,7 @@ import 'package:nephroscan/features/dashboard_screen/presentation/cubit/user_inf
 import 'package:nephroscan/features/home_screen/presentation/screens/home_screen.dart';
 import 'package:nephroscan/features/profile_screen/presentation/screens/profile_screen.dart';
 
+import '../../../../base/app_common_widget/custom_top_nav_bar/user_avatar_widget.dart';
 import '../../../calendar_screen/presentation/screens/calendar_screen.dart';
 import '../../../ct_scan_screen/presentation/screens/ct_scan_screen.dart';
 import '../../../message_screen/presentation/screens/message_screen.dart';
@@ -68,6 +69,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
           error: (_) {
             return Scaffold(
+              appBar: CustomTopNavBar(
+                rightWidget: UserAvatarWidget(
+                  username: 'username',
+                  email: 'email',
+                ),
+              ),
               body: Center(child: Text('Error loading user info')),
             );
           },
